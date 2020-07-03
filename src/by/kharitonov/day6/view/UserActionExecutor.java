@@ -1,8 +1,7 @@
 package by.kharitonov.day6.view;
 
-import by.kharitonov.day6.entity.Book;
-import by.kharitonov.day6.exception.BookProjectException;
-import by.kharitonov.day6.type.DaoAction;
+import by.kharitonov.day6.bo.Book;
+import by.kharitonov.day6.dao.type.DaoAction;
 
 import java.util.OptionalInt;
 
@@ -17,26 +16,28 @@ public class UserActionExecutor {
         return DaoAction.values()[choice];
     }
 
-    public void executeAction(DaoAction daoAction) {
+    public Book executeAction(DaoAction daoAction) {
+        Book book = null;
         switch (daoAction) {
             case ADD_BOOK:
-                addBookActions();
+                book = addBookPrepareActions();
                 break;
             case REMOVE_BOOK:
-                removeBookAction();
+                book = removeBookPrepareActions();
                 break;
             case FIND_BOOK_BY_TAG:
-                findBookAction();
+                book = findBookPrepareActions();
                 break;
             case SORT_BOOKS_BY_TAG:
-                sortBooksAction();
+                book = sortBooksPrepareActions();
                 break;
             default:
                 break;
         }
+        return book;
     }
 
-    private void addBookActions() {
+    private Book addBookPrepareActions() {
         ConsoleInputService inputService = new ConsoleInputService();
         ConsoleOutputService outputService = new ConsoleOutputService();
         String title;
@@ -53,7 +54,9 @@ public class UserActionExecutor {
             authorsNumber = inputService.readInt();
             if (authorsNumber.isEmpty()) {
                 outputService.printInputMismatchMessage();
-            } else if (authorsNumber.getAsInt() <= 0) {
+                continue;
+            }
+            if (authorsNumber.getAsInt() <= 0) {
                 outputService.printAuthorsNumberErrorMessage();
                 authorsNumber = OptionalInt.empty();
             }
@@ -79,24 +82,24 @@ public class UserActionExecutor {
         }
         outputService.printPublishingHouseMessage();
         publishingHouse = inputService.readString();
-        try {
-            book = Book.newBuilder().setPublishingHouse(publishingHouse)
-                    .setYear(year.getAsInt())
-                    .setPages(pages.getAsInt())
-                    .setAuthors(authors)
-                    .setTitle(title)
-                    .build();
-        } catch (BookProjectException e) {
-            return;
-        }
+        book = Book.newBuilder().setPublishingHouse(publishingHouse)
+                .setYear(year.getAsInt())
+                .setPages(pages.getAsInt())
+                .setAuthors(authors)
+                .setTitle(title)
+                .build();
+        return book;
     }
 
-    private void removeBookAction() {
+    private Book removeBookPrepareActions() {
+        return null;
     }
 
-    private void findBookAction() {
+    private Book findBookPrepareActions() {
+        return null;
     }
 
-    private void sortBooksAction() {
+    private Book sortBooksPrepareActions() {
+        return null;
     }
 }

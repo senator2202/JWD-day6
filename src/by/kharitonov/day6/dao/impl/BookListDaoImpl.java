@@ -1,7 +1,7 @@
-package by.kharitonov.day6.controller.impl;
+package by.kharitonov.day6.dao.impl;
 
-import by.kharitonov.day6.controller.BookListDao;
-import by.kharitonov.day6.entity.Book;
+import by.kharitonov.day6.dao.BookListDao;
+import by.kharitonov.day6.bo.Book;
 
 public class BookListDaoImpl implements BookListDao {
     @Override

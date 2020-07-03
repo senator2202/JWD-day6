@@ -1,4 +1,4 @@
-package by.kharitonov.day6.entity;
+package by.kharitonov.day6.bo;
 
 import by.kharitonov.day6.exception.BookProjectException;
 
@@ -83,16 +83,9 @@ public class Book {
             return this;
         }
 
-        public Book build() throws BookProjectException {
+        public Book build(){
             UUID uuid = UUID.randomUUID();
             Book.this.id = uuid.toString();
-            if (Book.this.title.isEmpty() ||
-                    Book.this.authors.isEmpty() ||
-                    Book.this.publishingHouse.isEmpty() ||
-                    Book.this.pages == 0 ||
-                    Book.this.year == 0) {
-                throw new BookProjectException("Book data is incomplete!");
-            }
             return Book.this;
         }
     }

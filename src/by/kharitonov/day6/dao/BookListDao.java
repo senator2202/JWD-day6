@@ -1,6 +1,6 @@
-package by.kharitonov.day6.controller;
+package by.kharitonov.day6.dao;
 
-import by.kharitonov.day6.entity.Book;
+import by.kharitonov.day6.bo.Book;
 
 public interface BookListDao {
     void addBook(Book book);
