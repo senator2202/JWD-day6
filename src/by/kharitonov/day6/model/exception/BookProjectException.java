@@ -1,4 +1,4 @@
-package by.kharitonov.day6.exception;
+package by.kharitonov.day6.model.exception;
 
 public class BookProjectException extends Exception {
     public BookProjectException() {

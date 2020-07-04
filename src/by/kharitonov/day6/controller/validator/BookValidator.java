@@ -1,6 +1,6 @@
-package by.kharitonov.day6.validator;
+package by.kharitonov.day6.controller.validator;
 
-import by.kharitonov.day6.bo.Book;
+import by.kharitonov.day6.model.bo.Book;
 
 import java.util.Calendar;
 import java.util.Locale;

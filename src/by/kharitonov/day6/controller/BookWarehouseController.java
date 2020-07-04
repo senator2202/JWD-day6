@@ -1,26 +1,33 @@
-package by.kharitonov.day6.view;
+package by.kharitonov.day6.controller;
 
-import by.kharitonov.day6.bo.Book;
-import by.kharitonov.day6.dao.type.DaoAction;
+import by.kharitonov.day6.controller.service.ConsoleInputService;
+import by.kharitonov.day6.model.bo.Book;
+import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
+import by.kharitonov.day6.model.dao.type.DaoAction;
+import by.kharitonov.day6.model.exception.BookProjectException;
+import by.kharitonov.day6.view.ConsoleOutputService;
 
 import java.util.OptionalInt;
 
-public class UserActionExecutor {
+public class BookWarehouseController {
+    private BookListDaoImpl bookListDao = BookListDaoImpl.getInstance();
+    private ConsoleOutputService outputService = new ConsoleOutputService();
+    private ConsoleInputService inputService = new ConsoleInputService();
 
     public DaoAction chooseStartAction() {
-        ConsoleInputService inputService = new ConsoleInputService();
         ConsoleOutputService outputService = new ConsoleOutputService();
+        ConsoleInputService inputService = new ConsoleInputService();
         int choice;
         outputService.printStartMenu();
         choice = inputService.readStartChoice();
         return DaoAction.values()[choice];
     }
 
-    public Book executeAction(DaoAction daoAction) {
+    public void executeAction(DaoAction daoAction) {
         Book book = null;
         switch (daoAction) {
             case ADD_BOOK:
-                book = addBookPrepareActions();
+                addBookActions();
                 break;
             case REMOVE_BOOK:
                 book = removeBookPrepareActions();
@@ -34,12 +41,19 @@ public class UserActionExecutor {
             default:
                 break;
         }
-        return book;
     }
 
-    private Book addBookPrepareActions() {
-        ConsoleInputService inputService = new ConsoleInputService();
-        ConsoleOutputService outputService = new ConsoleOutputService();
+    private void addBookActions() {
+        Book book = createBook();
+        try {
+            bookListDao.addBook(book);
+            outputService.printDaoAddMessage();
+        } catch (BookProjectException e) {
+            outputService.printDaoAddMessage(e.getMessage());
+        }
+    }
+
+    private Book createBook() {
         String title;
         OptionalInt authorsNumber = OptionalInt.empty();
         String[] authors;

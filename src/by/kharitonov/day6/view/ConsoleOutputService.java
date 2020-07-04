@@ -21,43 +21,53 @@ public class ConsoleOutputService {
             "Enter number of pages: ";
     private static final String PUBLISHING_HOUSE_MESSAGE =
             "Enter publishing house: ";
+    private static final String DAO_ADD_MESSAGE =
+            "Book successfully added to warehouse!";
 
-    ConsoleOutputService() {
+    public ConsoleOutputService() {
     }
 
-    void printStartMenu() {
+    public void printStartMenu() {
         System.out.println(START_MENU);
     }
 
-    void printBookNameMessage() {
+    public void printBookNameMessage() {
         System.out.print(BOOK_NAME_MESSAGE);
     }
 
-    void printAuthorsNumberMessage() {
+    public void printAuthorsNumberMessage() {
         System.out.print(AUTHORS_NUMBER_MESSAGE);
     }
 
-    void printAuthorsNumberErrorMessage() {
+    public void printAuthorsNumberErrorMessage() {
         System.out.println(AUTHORS_NUMBER_ERROR_MESSAGE);
     }
 
-    void printAuthorMessage(int number) {
+    public void printAuthorMessage(int number) {
         System.out.printf(String.format(AUTHOR_MESSAGE, number));
     }
 
-    void printYearMessage() {
+    public void printYearMessage() {
         System.out.print(YEAR_MESSAGE);
     }
 
-    void printInputMismatchMessage() {
+    public void printInputMismatchMessage() {
         System.out.println(INPUT_MISMATCH_MESSAGE);
     }
 
-    void printPagesNumberMessage() {
+    public void printPagesNumberMessage() {
         System.out.print(PAGES_NUMBER_MESSAGE);
     }
 
-    void printPublishingHouseMessage() {
+    public void printPublishingHouseMessage() {
         System.out.print(PUBLISHING_HOUSE_MESSAGE);
+    }
+
+    public void printDaoAddMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void printDaoAddMessage() {
+        System.out.println(DAO_ADD_MESSAGE);
     }
 }

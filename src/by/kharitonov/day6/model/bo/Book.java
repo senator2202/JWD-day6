@@ -1,6 +1,4 @@
-package by.kharitonov.day6.bo;
-
-import by.kharitonov.day6.exception.BookProjectException;
+package by.kharitonov.day6.model.bo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +53,11 @@ public class Book {
             Book.this.publishingHouse = "";
         }
 
+        public Builder setId(String id) {
+            Book.this.id = id;
+            return this;
+        }
+
         public Builder setTitle(String title) {
             Book.this.title = title;
             return this;
@@ -83,9 +86,11 @@ public class Book {
             return this;
         }
 
-        public Book build(){
-            UUID uuid = UUID.randomUUID();
-            Book.this.id = uuid.toString();
+        public Book build() {
+            if (Book.this.id.isEmpty()) {
+                UUID uuid = UUID.randomUUID();
+                Book.this.id = uuid.toString();
+            }
             return Book.this;
         }
     }

@@ -1,14 +1,15 @@
 package by.kharitonov.day6.main;
 
-import by.kharitonov.day6.dao.type.DaoAction;
-import by.kharitonov.day6.view.UserActionExecutor;
+import by.kharitonov.day6.controller.BookWarehouseController;
+import by.kharitonov.day6.model.dao.type.DaoAction;
 
 public class SixTaskMain {
     public static void main(String[] args) {
-        UserActionExecutor actionExecutor = new UserActionExecutor();
-        DaoAction daoAction = actionExecutor.chooseStartAction();
-        if (daoAction != DaoAction.NONE) {
-            actionExecutor.executeAction(daoAction);
-        }
+        BookWarehouseController service = new BookWarehouseController();
+        DaoAction daoAction = DaoAction.NONE;
+        do {
+            daoAction = service.chooseStartAction();
+            service.executeAction(daoAction);
+        } while (daoAction != DaoAction.NONE);
     }
 }
