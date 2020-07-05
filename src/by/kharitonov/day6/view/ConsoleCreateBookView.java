@@ -1,6 +1,8 @@
 package by.kharitonov.day6.view;
 
-public class ConsoleAddBookView {
+public class ConsoleCreateBookView {
+    private static final String BOOK_ID_MESSAGE =
+            "Enter book id: ";
     private static final String BOOK_NAME_MESSAGE = "Enter book title: ";
     private static final String AUTHORS_NUMBER_MESSAGE =
             "Enter number of authors: ";
@@ -16,10 +18,12 @@ public class ConsoleAddBookView {
     private static final String PAGES_MISMATCH_MESSAGE = "Wrong pages number!";
     private static final String PUBLISHING_HOUSE_MESSAGE =
             "Enter publishing house: ";
-    private static final String DAO_ADD_MESSAGE =
-            "Book was successfully added to warehouse!";
 
-    public void printBookNameMessage() {
+    public void printBookIdMessage() {
+        System.out.println(BOOK_ID_MESSAGE);
+    }
+
+    public void printBookTitleMessage() {
         System.out.print(BOOK_NAME_MESSAGE);
     }
 
@@ -57,13 +61,5 @@ public class ConsoleAddBookView {
 
     public void printPublishingHouseMessage() {
         System.out.print(PUBLISHING_HOUSE_MESSAGE);
-    }
-
-    public void printDaoAddMessage(String message) {
-        System.out.println(message);
-    }
-
-    public void printDaoAddMessage() {
-        System.out.println(DAO_ADD_MESSAGE);
     }
 }

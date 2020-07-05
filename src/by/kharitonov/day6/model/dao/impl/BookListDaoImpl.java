@@ -18,7 +18,8 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public void removeBook(Book book) {
+    public void removeBook(Book book) throws BookProjectException {
+        warehouse.remove(book);
     }
 
     @Override
@@ -27,5 +28,10 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public void sortBooksByTag(Book book) {
+    }
+
+    @Override
+    public String getAll() {
+        return warehouse.toString();
     }
 }

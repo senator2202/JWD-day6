@@ -1,7 +1,7 @@
 package by.kharitonov.day6.main;
 
 import by.kharitonov.day6.controller.BookWarehouseController;
-import by.kharitonov.day6.model.dao.type.DaoAction;
+import by.kharitonov.day6.controller.type.DaoAction;
 
 public class BookWarehouseMain {
     public static void main(String[] args) {

@@ -7,6 +7,7 @@ public class ConsoleStartMenuView {
                 "2 - remove book;\n" +
                 "3 - find book by tag;\n" +
                 "4 - sort books by tag;\n" +
+                "5 - view all books;\n" +
                 "0 - exit.";
 
     public void printStartMenu() {

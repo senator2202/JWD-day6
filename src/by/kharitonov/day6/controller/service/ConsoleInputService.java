@@ -8,7 +8,7 @@ public  class ConsoleInputService {
     public  int readStartChoice() {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
-        while (choice < 0 || choice > 4) {
+        while (choice < 0 || choice > 5) {
             choice = scanner.nextInt();
         }
         return choice;
