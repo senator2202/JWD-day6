@@ -1,42 +1,41 @@
 package by.kharitonov.day6.controller;
 
 import by.kharitonov.day6.controller.service.ConsoleInputService;
+import by.kharitonov.day6.controller.validator.BookValidator;
 import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.dao.type.DaoAction;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import by.kharitonov.day6.view.ConsoleOutputService;
+import by.kharitonov.day6.view.ConsoleAddBookView;
+import by.kharitonov.day6.view.ConsoleStartMenuView;
 
 import java.util.OptionalInt;
 
 public class BookWarehouseController {
     private BookListDaoImpl bookListDao = BookListDaoImpl.getInstance();
-    private ConsoleOutputService outputService = new ConsoleOutputService();
     private ConsoleInputService inputService = new ConsoleInputService();
 
     public DaoAction chooseStartAction() {
-        ConsoleOutputService outputService = new ConsoleOutputService();
-        ConsoleInputService inputService = new ConsoleInputService();
+        ConsoleStartMenuView startMenuViewView = new ConsoleStartMenuView();
         int choice;
-        outputService.printStartMenu();
+        startMenuViewView.printStartMenu();
         choice = inputService.readStartChoice();
         return DaoAction.values()[choice];
     }
 
     public void executeAction(DaoAction daoAction) {
-        Book book = null;
         switch (daoAction) {
             case ADD_BOOK:
                 addBookActions();
                 break;
             case REMOVE_BOOK:
-                book = removeBookPrepareActions();
+                removeBookActions();
                 break;
             case FIND_BOOK_BY_TAG:
-                book = findBookPrepareActions();
+                findBookActions();
                 break;
             case SORT_BOOKS_BY_TAG:
-                book = sortBooksPrepareActions();
+                sortBooksActions();
                 break;
             default:
                 break;
@@ -44,16 +43,18 @@ public class BookWarehouseController {
     }
 
     private void addBookActions() {
-        Book book = createBook();
+        ConsoleAddBookView addBookView = new ConsoleAddBookView();
+        Book book = createBook(addBookView);
         try {
             bookListDao.addBook(book);
-            outputService.printDaoAddMessage();
+            addBookView.printDaoAddMessage();
         } catch (BookProjectException e) {
-            outputService.printDaoAddMessage(e.getMessage());
+            addBookView.printDaoAddMessage(e.getMessage());
         }
     }
 
-    private Book createBook() {
+    private Book createBook(ConsoleAddBookView addBookView) {
+        BookValidator bookValidator = new BookValidator();
         String title;
         OptionalInt authorsNumber = OptionalInt.empty();
         String[] authors;
@@ -61,40 +62,50 @@ public class BookWarehouseController {
         OptionalInt pages = OptionalInt.empty();
         String publishingHouse;
         Book book;
-        outputService.printBookNameMessage();
+        addBookView.printBookNameMessage();
         title = inputService.readString();
         while (authorsNumber.isEmpty()) {
-            outputService.printAuthorsNumberMessage();
+            addBookView.printAuthorsNumberMessage();
             authorsNumber = inputService.readInt();
             if (authorsNumber.isEmpty()) {
-                outputService.printInputMismatchMessage();
+                addBookView.printInputMismatchMessage();
                 continue;
             }
             if (authorsNumber.getAsInt() <= 0) {
-                outputService.printAuthorsNumberErrorMessage();
+                addBookView.printAuthorsNumberErrorMessage();
                 authorsNumber = OptionalInt.empty();
             }
         }
         authors = new String[authorsNumber.getAsInt()];
         for (int i = 0; i < authorsNumber.getAsInt(); i++) {
-            outputService.printAuthorMessage(i + 1);
+            addBookView.printAuthorMessage(i + 1);
             authors[i] = inputService.readString();
         }
         while (year.isEmpty()) {
-            outputService.printYearMessage();
+            addBookView.printYearMessage();
             year = inputService.readInt();
             if (year.isEmpty()) {
-                outputService.printInputMismatchMessage();
+                addBookView.printInputMismatchMessage();
+                continue;
+            }
+            if (!bookValidator.validateYear(year.getAsInt())) {
+                addBookView.printYearMismatchMessage();
+                year = OptionalInt.empty();
             }
         }
         while (pages.isEmpty()) {
-            outputService.printPagesNumberMessage();
+            addBookView.printPagesNumberMessage();
             pages = inputService.readInt();
             if (pages.isEmpty()) {
-                outputService.printInputMismatchMessage();
+                addBookView.printInputMismatchMessage();
+                continue;
+            }
+            if (!bookValidator.validatePages(pages.getAsInt())) {
+                addBookView.printPagesMismatchMessage();
+                pages = OptionalInt.empty();
             }
         }
-        outputService.printPublishingHouseMessage();
+        addBookView.printPublishingHouseMessage();
         publishingHouse = inputService.readString();
         book = Book.newBuilder().setPublishingHouse(publishingHouse)
                 .setYear(year.getAsInt())
@@ -105,15 +116,12 @@ public class BookWarehouseController {
         return book;
     }
 
-    private Book removeBookPrepareActions() {
-        return null;
+    private void removeBookActions() {
     }
 
-    private Book findBookPrepareActions() {
-        return null;
+    private void findBookActions() {
     }
 
-    private Book sortBooksPrepareActions() {
-        return null;
+    private void sortBooksActions() {
     }
 }

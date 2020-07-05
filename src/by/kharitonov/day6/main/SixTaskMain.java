@@ -6,7 +6,7 @@ import by.kharitonov.day6.model.dao.type.DaoAction;
 public class SixTaskMain {
     public static void main(String[] args) {
         BookWarehouseController service = new BookWarehouseController();
-        DaoAction daoAction = DaoAction.NONE;
+        DaoAction daoAction;
         do {
             daoAction = service.chooseStartAction();
             service.executeAction(daoAction);
