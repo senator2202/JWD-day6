@@ -6,11 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookWarehouse {
+    private static BookWarehouse bookWarehouseInstance;
     private static final int CAPACITY = 100;
     private List<Book> books;
 
-    public BookWarehouse() {
+    private BookWarehouse() {
         books = new ArrayList<>();
+    }
+
+    public static BookWarehouse getInstance() {
+        if (bookWarehouseInstance == null) {
+            bookWarehouseInstance = new BookWarehouse();
+        }
+        return bookWarehouseInstance;
     }
 
     public void add(Book book) throws BookProjectException {

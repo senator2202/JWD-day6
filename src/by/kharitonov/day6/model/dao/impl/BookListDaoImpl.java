@@ -6,18 +6,10 @@ import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 public class BookListDaoImpl implements BookListDao {
-    private static BookListDaoImpl bookListDaoImplInstance;
     private BookWarehouse warehouse;
 
-    private BookListDaoImpl() {
-        warehouse = new BookWarehouse();
-    }
-
-    public static BookListDaoImpl getInstance() {
-        if (bookListDaoImplInstance == null) {
-            bookListDaoImplInstance = new BookListDaoImpl();
-        }
-        return bookListDaoImplInstance;
+    public BookListDaoImpl() {
+        warehouse = BookWarehouse.getInstance();
     }
 
     @Override

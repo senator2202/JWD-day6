@@ -12,7 +12,7 @@ import by.kharitonov.day6.view.ConsoleStartMenuView;
 import java.util.OptionalInt;
 
 public class BookWarehouseController {
-    private BookListDaoImpl bookListDao = BookListDaoImpl.getInstance();
+    private BookListDaoImpl bookListDao = new BookListDaoImpl();
     private ConsoleInputService inputService = new ConsoleInputService();
 
     public DaoAction chooseStartAction() {
