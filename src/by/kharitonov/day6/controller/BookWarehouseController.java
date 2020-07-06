@@ -139,7 +139,7 @@ public class BookWarehouseController {
     }
 
     public void findBook() {
-        ConsoleFindBooksView findBooksView = new ConsoleFindBooksView();
+        ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
         BookTag bookTag;
         String tagValue;
@@ -148,12 +148,8 @@ public class BookWarehouseController {
         bookTag = chooseFindTag();
         findBooksView.printEnterTagMessage(bookTag);
         tagValue = inputService.readString();
-        try {
-            findResult = bookListDao.findBooksByTag(bookTag,tagValue);
-            findBooksView.printFindResult(findResult);
-        } catch (BookProjectException e) {
-            daoMessageView.printDaoMessage(e.getMessage());
-        }
+        findResult = bookListDao.findBooksByTag(bookTag, tagValue);
+        findBooksView.printFindSortResult(findResult);
     }
 
     private BookTag chooseFindTag() {
@@ -162,12 +158,19 @@ public class BookWarehouseController {
         return BookTag.values()[choice - 1];
     }
 
-    private void sortBooksActions() {
+    public void sortBooksActions() {
+        ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
+        BookTag bookTag;
+        List<Book> findResult;
+        findBooksView.printFindMenu();
+        bookTag = chooseFindTag();
+        findResult = bookListDao.sortBooksByTag(bookTag);
+        findBooksView.printFindSortResult(findResult);
     }
 
     private void viewAllActions() {
         ConsoleWarehouseView view = new ConsoleWarehouseView();
-        String result = bookListDao.getAll();
+        List<Book> result = bookListDao.getAll();
         view.printWarehouse(result);
     }
 }

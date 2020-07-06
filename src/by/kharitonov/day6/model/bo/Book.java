@@ -39,6 +39,14 @@ public class Book {
         return publishingHouse;
     }
 
+    public int getAuthorsNumber() {
+        return authors.size();
+    }
+
+    public String getMainAuthor() {
+        return authors.isEmpty() ? "" : authors.get(0);
+    }
+
     public static Builder newBuilder() {
         return new Book().new Builder();
     }

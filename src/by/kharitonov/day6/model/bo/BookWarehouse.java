@@ -1,9 +1,12 @@
 package by.kharitonov.day6.model.bo;
 
 import by.kharitonov.day6.controller.type.BookTag;
+import by.kharitonov.day6.model.bo.comparator.*;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BookWarehouse {
@@ -39,25 +42,24 @@ public class BookWarehouse {
         books.add(book);
     }
 
-    public Book get(int index) throws BookProjectException {
-        if (index >= books.size()) {
-            throw new BookProjectException("Index is too big!");
+    public void remove(Book book) throws BookProjectException {
+        if (book == null) {
+            throw new BookProjectException("Book has null pointer!");
         }
-        return books.get(index);
+        boolean flag = books.remove(book);
+        if (!flag) {
+            throw new BookProjectException("Such book doesn't exist!");
+        }
     }
 
-    public List<Book> find(BookTag bookTag, String tagValue)
-            throws BookProjectException {
-        if (bookTag == null) {
-            throw new BookProjectException("Book tag has null pointer!");
-        }
+    public List<Book> find(BookTag bookTag, String tagValue) {
         List<Book> list = null;
         switch (bookTag) {
             case ID:
-                list=findById(tagValue);
+                list = findById(tagValue);
                 break;
             case TITLE:
-                list=findByTitle(tagValue);
+                list = findByTitle(tagValue);
                 break;
             case AUTHOR:
                 list = findByAuthor(tagValue);
@@ -136,14 +138,35 @@ public class BookWarehouse {
         return list;
     }
 
-    public void remove(Book book) throws BookProjectException {
-        if (book == null) {
-            throw new BookProjectException("Book has null pointer!");
+    public List<Book> sort(BookTag bookTag) {
+        List<Book> list = new ArrayList<>(books);
+        Comparator<Book> comparator = null;
+        switch (bookTag) {
+            case ID:
+                comparator = new BookComparatorId();
+                break;
+            case TITLE:
+                comparator = new BookComparatorTitle();
+                break;
+            case AUTHOR:
+                comparator = new BookComparatorAuthors();
+                break;
+            case YEAR:
+                comparator = new BookComparatorYear();
+                break;
+            case PAGES:
+                comparator = new BookComparatorPages();
+                break;
+            case PUBLISHING_HOUSE:
+                comparator = new BookComparatorPublishingHouse();
+                break;
         }
-        boolean flag = books.remove(book);
-        if (!flag) {
-            throw new BookProjectException("Such book doesn't exist!");
-        }
+        Collections.sort(list, comparator);
+        return list;
+    }
+
+    public List<Book> getAll() {
+        return new ArrayList<>(books);
     }
 
     @Override

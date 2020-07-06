@@ -5,6 +5,7 @@ import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.bo.BookWarehouse;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.exception.BookProjectException;
+import com.sun.istack.internal.NotNull;
 
 import java.util.List;
 
@@ -26,17 +27,18 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public List<Book> findBooksByTag(BookTag bookTag, String tagValue)
-            throws BookProjectException {
+    public List<Book> findBooksByTag(@NotNull BookTag bookTag,
+                                     @NotNull String tagValue){
         return warehouse.find(bookTag, tagValue);
     }
 
     @Override
-    public void sortBooksByTag(Book book) {
+    public List<Book> sortBooksByTag(BookTag bookTag) {
+        return warehouse.sort(bookTag);
     }
 
     @Override
-    public String getAll() {
-        return warehouse.toString();
+    public List<Book> getAll() {
+        return warehouse.getAll();
     }
 }

@@ -5,8 +5,8 @@ import by.kharitonov.day6.model.bo.Book;
 
 import java.util.List;
 
-public class ConsoleFindBooksView {
-    private static final String FIND_MENU =
+public class ConsoleFindSortBooksView {
+    private static final String TAG_MENU =
             "Choose a tag to find by:\n" +
                     "1 - id;\n" +
                     "2 - title;\n" +
@@ -17,14 +17,14 @@ public class ConsoleFindBooksView {
     private static final String ENTER_TAG_MESSAGE = "Enter %s:";
 
     public void printFindMenu() {
-        System.out.println(FIND_MENU);
+        System.out.println(TAG_MENU);
     }
 
     public void printEnterTagMessage(BookTag bookTag) {
         System.out.println(String.format(ENTER_TAG_MESSAGE, bookTag));
     }
 
-    public void printFindResult(List<Book> books) {
+    public void printFindSortResult(List<Book> books) {
         for (Book book : books) {
             System.out.println(book);
         }
