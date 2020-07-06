@@ -1,9 +1,12 @@
 package by.kharitonov.day6.model.dao.impl;
 
+import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.bo.BookWarehouse;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.exception.BookProjectException;
+
+import java.util.List;
 
 public class BookListDaoImpl implements BookListDao {
     private BookWarehouse warehouse;
@@ -23,7 +26,9 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public void findBookByTag(Book book) {
+    public List<Book> findBooksByTag(BookTag bookTag, String tagValue)
+            throws BookProjectException {
+        return warehouse.find(bookTag, tagValue);
     }
 
     @Override

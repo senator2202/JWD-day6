@@ -5,11 +5,15 @@ import java.util.OptionalInt;
 import java.util.Scanner;
 
 public  class ConsoleInputService {
-    public  int readStartChoice() {
+    public  int readMenuChoice(int rangeStart, int rangeEnd) {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
-        while (choice < 0 || choice > 5) {
-            choice = scanner.nextInt();
+        while (choice < rangeStart || choice > rangeEnd) {
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                continue;
+            }
         }
         return choice;
     }

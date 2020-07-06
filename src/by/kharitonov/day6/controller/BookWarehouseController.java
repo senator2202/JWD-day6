@@ -1,17 +1,16 @@
 package by.kharitonov.day6.controller;
 
 import by.kharitonov.day6.controller.service.ConsoleInputService;
+import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.controller.type.DaoAction;
 import by.kharitonov.day6.controller.validator.BookValidator;
 import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import by.kharitonov.day6.view.ConsoleCreateBookView;
-import by.kharitonov.day6.view.ConsoleDaoMessageView;
-import by.kharitonov.day6.view.ConsoleStartMenuView;
-import by.kharitonov.day6.view.ConsoleWarehouseView;
+import by.kharitonov.day6.view.*;
 
+import java.util.List;
 import java.util.OptionalInt;
 
 public class BookWarehouseController {
@@ -22,20 +21,20 @@ public class BookWarehouseController {
         ConsoleStartMenuView startMenuView = new ConsoleStartMenuView();
         int choice;
         startMenuView.printStartMenu();
-        choice = inputService.readStartChoice();
+        choice = inputService.readMenuChoice(0, 5);
         return DaoAction.values()[choice];
     }
 
     public void executeAction(DaoAction daoAction) {
         switch (daoAction) {
             case ADD_BOOK:
-                addBookActions();
+                addBook();
                 break;
             case REMOVE_BOOK:
-                removeBookActions();
+                removeBook();
                 break;
             case FIND_BOOK_BY_TAG:
-                findBookActions();
+                findBook();
                 break;
             case SORT_BOOKS_BY_TAG:
                 sortBooksActions();
@@ -48,7 +47,7 @@ public class BookWarehouseController {
         }
     }
 
-    private void addBookActions() {
+    public void addBook() {
         ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
         Book book = createBookConsole(createBookView);
@@ -74,10 +73,10 @@ public class BookWarehouseController {
         id = inputService.readString();
         addBookView.printBookTitleMessage();
         title = inputService.readString();
-        while (authorsNumber.isEmpty()) {
+        while (!authorsNumber.isPresent()) {
             addBookView.printAuthorsNumberMessage();
             authorsNumber = inputService.readInt();
-            if (authorsNumber.isEmpty()) {
+            if (!authorsNumber.isPresent()) {
                 addBookView.printInputMismatchMessage();
                 continue;
             }
@@ -91,10 +90,10 @@ public class BookWarehouseController {
             addBookView.printAuthorMessage(i + 1);
             authors[i] = inputService.readString();
         }
-        while (year.isEmpty()) {
+        while (!year.isPresent()) {
             addBookView.printYearMessage();
             year = inputService.readInt();
-            if (year.isEmpty()) {
+            if (!year.isPresent()) {
                 addBookView.printInputMismatchMessage();
                 continue;
             }
@@ -103,10 +102,10 @@ public class BookWarehouseController {
                 year = OptionalInt.empty();
             }
         }
-        while (pages.isEmpty()) {
+        while (!pages.isPresent()) {
             addBookView.printPagesNumberMessage();
             pages = inputService.readInt();
-            if (pages.isEmpty()) {
+            if (!pages.isPresent()) {
                 addBookView.printInputMismatchMessage();
                 continue;
             }
@@ -127,7 +126,7 @@ public class BookWarehouseController {
         return book;
     }
 
-    private void removeBookActions() {
+    public void removeBook() {
         ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
         Book book = createBookConsole(createBookView);
@@ -139,7 +138,28 @@ public class BookWarehouseController {
         }
     }
 
-    private void findBookActions() {
+    public void findBook() {
+        ConsoleFindBooksView findBooksView = new ConsoleFindBooksView();
+        ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
+        BookTag bookTag;
+        String tagValue;
+        List<Book> findResult;
+        findBooksView.printFindMenu();
+        bookTag = chooseFindTag();
+        findBooksView.printEnterTagMessage(bookTag);
+        tagValue = inputService.readString();
+        try {
+            findResult = bookListDao.findBooksByTag(bookTag,tagValue);
+            findBooksView.printFindResult(findResult);
+        } catch (BookProjectException e) {
+            daoMessageView.printDaoMessage(e.getMessage());
+        }
+    }
+
+    private BookTag chooseFindTag() {
+        int choice;
+        choice = inputService.readMenuChoice(1, 6);
+        return BookTag.values()[choice - 1];
     }
 
     private void sortBooksActions() {

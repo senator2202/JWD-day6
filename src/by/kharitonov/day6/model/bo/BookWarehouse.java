@@ -1,5 +1,6 @@
 package by.kharitonov.day6.model.bo;
 
+import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class BookWarehouse {
     }
 
     public void add(Book book) throws BookProjectException {
-        if (book==null) {
+        if (book == null) {
             throw new BookProjectException("Book has null pointer!");
         }
         if (books.indexOf(book) != -1) {
@@ -45,8 +46,98 @@ public class BookWarehouse {
         return books.get(index);
     }
 
+    public List<Book> find(BookTag bookTag, String tagValue)
+            throws BookProjectException {
+        if (bookTag == null) {
+            throw new BookProjectException("Book tag has null pointer!");
+        }
+        List<Book> list = null;
+        switch (bookTag) {
+            case ID:
+                list=findById(tagValue);
+                break;
+            case TITLE:
+                list=findByTitle(tagValue);
+                break;
+            case AUTHOR:
+                list = findByAuthor(tagValue);
+                break;
+            case YEAR:
+                list = findByYear(tagValue);
+                break;
+            case PAGES:
+                list = findByPages(tagValue);
+                break;
+            case PUBLISHING_HOUSE:
+                list = findByPublishingHouse(tagValue);
+                break;
+        }
+        return list;
+    }
+
+    private List<Book> findById(String id) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getId().equals(id)) {
+                list.add(book);
+                break;
+            }
+        }
+        return list;
+    }
+
+    private List<Book> findByTitle(String title) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    private List<Book> findByAuthor(String title) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getAuthors().contains(title)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    private List<Book> findByYear(String year) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (String.valueOf(book.getYear()).equals(year)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    private List<Book> findByPages(String pages) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (String.valueOf(book.getPages()).equals(pages)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
+    private List<Book> findByPublishingHouse(String publishingHouse) {
+        List<Book> list = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getPublishingHouse().equals(publishingHouse)) {
+                list.add(book);
+            }
+        }
+        return list;
+    }
+
     public void remove(Book book) throws BookProjectException {
-        if (book==null) {
+        if (book == null) {
             throw new BookProjectException("Book has null pointer!");
         }
         boolean flag = books.remove(book);

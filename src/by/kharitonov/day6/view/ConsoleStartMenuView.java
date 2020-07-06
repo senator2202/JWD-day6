@@ -8,7 +8,7 @@ public class ConsoleStartMenuView {
                 "3 - find book by tag;\n" +
                 "4 - sort books by tag;\n" +
                 "5 - view all books;\n" +
-                "0 - exit.";
+                "0 - exit.\n";
 
     public void printStartMenu() {
         System.out.println(START_MENU);
