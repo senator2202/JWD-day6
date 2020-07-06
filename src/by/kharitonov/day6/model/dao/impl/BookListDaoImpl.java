@@ -5,7 +5,6 @@ import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.bo.BookWarehouse;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import com.sun.istack.internal.NotNull;
 
 import java.util.List;
 
@@ -27,8 +26,7 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public List<Book> findBooksByTag(@NotNull BookTag bookTag,
-                                     @NotNull String tagValue){
+    public List<Book> findBooksByTag(BookTag bookTag, String tagValue) {
         return warehouse.find(bookTag, tagValue);
     }
 
