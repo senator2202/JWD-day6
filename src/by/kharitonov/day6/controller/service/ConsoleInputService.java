@@ -24,7 +24,7 @@ public  class ConsoleInputService {
 
     public OptionalInt readInt() {
         Scanner scanner = new Scanner(System.in);
-        int result = -1;
+        int result;
         try {
             result = scanner.nextInt();
         } catch (InputMismatchException e) {

@@ -5,7 +5,6 @@ import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 public enum BookTag {
@@ -16,9 +15,7 @@ public enum BookTag {
         Function<String, List<Book>> findFunction = null;
         switch (this) {
             case ID:
-                Function<String, Optional<Book>> idFunction =
-                        value -> bookListDao.findBookById(value);
-                return idFunction;
+                return value -> bookListDao.findBookById((String) value);
             case TITLE:
                 findFunction = value -> bookListDao.findBooksByTitle(value);
                 break;

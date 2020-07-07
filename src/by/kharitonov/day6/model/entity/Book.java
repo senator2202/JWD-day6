@@ -1,9 +1,6 @@
 package by.kharitonov.day6.model.entity;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Book {
     private String id;
@@ -40,11 +37,7 @@ public class Book {
         return publishingHouse;
     }
 
-    public int getAuthorsNumber() {
-        return authors.size();
-    }
-
-    public String getMainAuthor() {
+    private String getMainAuthor() {
         return authors.isEmpty() ? "" : authors.get(0);
     }
 
@@ -72,9 +65,7 @@ public class Book {
 
         public Builder setAuthors(String... authors) {
             Book.this.authors = new ArrayList<>();
-            for (String author : authors) {
-                Book.this.authors.add(author);
-            }
+            Book.this.authors.addAll(Arrays.asList(authors));
             return this;
         }
 
@@ -105,10 +96,10 @@ public class Book {
     public static class BookAuthorsComparator implements Comparator<Book> {
         @Override
         public int compare(Book o1, Book o2) {
-            if (o1.getAuthorsNumber() == o2.getAuthorsNumber()) {
+            if (o1.authors.size() == o2.authors.size()) {
                 return o1.getMainAuthor().compareTo(o2.getMainAuthor());
             }
-            return o1.getAuthorsNumber() - o2.getAuthorsNumber();
+            return o1.authors.size() - o2.authors.size();
         }
     }
 

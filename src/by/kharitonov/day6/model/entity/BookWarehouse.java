@@ -6,7 +6,6 @@ import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class BookWarehouse {
                 comparator = new Book.BookPublishingHouseComparator();
                 break;
         }
-        Collections.sort(list, comparator);
+        list.sort(comparator);
         return list;
     }
 

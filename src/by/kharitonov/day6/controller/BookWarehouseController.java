@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.OptionalInt;
 
 public class BookWarehouseController {
-    private BookListDao bookListDao = new BookListDaoImpl();
-    private ConsoleInputService inputService = new ConsoleInputService();
+    private final BookListDao bookListDao = new BookListDaoImpl();
+    private final ConsoleInputService inputService = new ConsoleInputService();
 
     public DaoAction chooseStartAction() {
         ConsoleStartMenuView startMenuView = new ConsoleStartMenuView();
@@ -47,7 +47,7 @@ public class BookWarehouseController {
         }
     }
 
-    public void addBook() {
+    private void addBook() {
         ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
         Book book = createBookConsole(createBookView);
@@ -126,7 +126,7 @@ public class BookWarehouseController {
         return book;
     }
 
-    public void removeBook() {
+    private void removeBook() {
         ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
         Book book = createBookConsole(createBookView);
@@ -138,7 +138,7 @@ public class BookWarehouseController {
         }
     }
 
-    public void findBook() {
+    private void findBook() {
         ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
         BookValidator bookValidator = new BookValidator();
         BookTag bookTag;
@@ -162,7 +162,7 @@ public class BookWarehouseController {
         return BookTag.values()[choice - 1];
     }
 
-    public void sortBooks() {
+    private void sortBooks() {
         ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
         BookTag bookTag;
         List<Book> findResult;
