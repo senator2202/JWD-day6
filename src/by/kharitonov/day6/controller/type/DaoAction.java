@@ -8,7 +8,7 @@ public enum DaoAction {
     SORT_BOOKS_BY_TAG(4),
     VIEW_ALL(5);
 
-    private int index;
+    private final int index;
 
     DaoAction(int index) {
         this.index = index;

@@ -34,9 +34,7 @@ public class ConsoleFindSortBooksView {
         }
         if (object instanceof Optional) {
             Optional<Book> optionalBook = (Optional<Book>) object;
-            if (optionalBook.isPresent()) {
-                System.out.println(optionalBook.get());
-            }
+            optionalBook.ifPresent(System.out::println);
         }
     }
 }

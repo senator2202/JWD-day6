@@ -27,8 +27,8 @@ public class BookParser {
         String title = tags[2];
         String stringAuthors = tags[3];
         String[] authorsSplit = stringAuthors.split(",");
-        int year = 0;
-        int pages = 0;
+        int year;
+        int pages;
         try {
             year = Integer.parseInt(tags[4]);
             pages = Integer.parseInt(tags[5]);

@@ -6,12 +6,11 @@ import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class BookListDaoImpl implements BookListDao {
-    private BookWarehouse warehouse;
+    private final BookWarehouse warehouse;
 
     public BookListDaoImpl() {
         warehouse = BookWarehouse.getInstance();
@@ -109,7 +108,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksById() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookIdComparator());
+        sortedList.sort(new Book.BookIdComparator());
         return sortedList;
     }
 
@@ -117,7 +116,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksByTitle() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookTitleComparator());
+        sortedList.sort(new Book.BookTitleComparator());
         return sortedList;
     }
 
@@ -125,7 +124,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksByAuthors() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookAuthorsComparator());
+        sortedList.sort(new Book.BookAuthorsComparator());
         return sortedList;
     }
 
@@ -133,7 +132,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksByYear() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookYearComparator());
+        sortedList.sort(new Book.BookYearComparator());
         return sortedList;
     }
 
@@ -141,7 +140,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksByPages() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookPagesComparator());
+        sortedList.sort(new Book.BookPagesComparator());
         return sortedList;
     }
 
@@ -149,7 +148,7 @@ public class BookListDaoImpl implements BookListDao {
     public List<Book> sortBooksByPublishingHouse() {
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
-        Collections.sort(sortedList, new Book.BookPublishingHouseComparator());
+        sortedList.sort(new Book.BookPublishingHouseComparator());
         return sortedList;
     }
 }

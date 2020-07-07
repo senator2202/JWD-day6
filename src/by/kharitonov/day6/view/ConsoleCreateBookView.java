@@ -36,7 +36,7 @@ public class ConsoleCreateBookView {
     }
 
     public void printAuthorMessage(int number) {
-        System.out.printf(String.format(AUTHOR_MESSAGE, number));
+        System.out.println(String.format(AUTHOR_MESSAGE, number));
     }
 
     public void printYearMessage() {
