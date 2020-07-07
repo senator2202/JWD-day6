@@ -1,5 +1,7 @@
 package by.kharitonov.day6.controller.validator;
 
+import by.kharitonov.day6.controller.type.BookTag;
+
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -23,5 +25,19 @@ public class BookValidator {
 
     public boolean validatePages(int pages) {
         return pages > 0 && pages <= MAX_PAGES;
+    }
+
+    public boolean validateTag(BookTag bookTag, String stringValue) {
+        if (bookTag != BookTag.PAGES && bookTag != BookTag.YEAR) {
+            return true;
+        }
+        try {
+            int intValue = Integer.parseInt(stringValue);
+            return bookTag == BookTag.YEAR
+                    ? validateYear(intValue)
+                    : validatePages(intValue);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

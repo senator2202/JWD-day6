@@ -4,9 +4,9 @@ import by.kharitonov.day6.controller.service.ConsoleInputService;
 import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.controller.type.DaoAction;
 import by.kharitonov.day6.controller.validator.BookValidator;
-import by.kharitonov.day6.model.bo.Book;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
+import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
 import by.kharitonov.day6.view.*;
 
@@ -37,10 +37,10 @@ public class BookWarehouseController {
                 findBook();
                 break;
             case SORT_BOOKS_BY_TAG:
-                sortBooksActions();
+                sortBooks();
                 break;
             case VIEW_ALL:
-                viewAllActions();
+                viewAll();
                 break;
             default:
                 break;
@@ -140,15 +140,19 @@ public class BookWarehouseController {
 
     public void findBook() {
         ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
-        ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
+        BookValidator bookValidator = new BookValidator();
         BookTag bookTag;
-        String tagValue;
-        List<Book> findResult;
+        boolean validateFlag = false;
+        String tagValue = "";
+        Object findResult;
         findBooksView.printFindMenu();
         bookTag = chooseFindTag();
-        findBooksView.printEnterTagMessage(bookTag);
-        tagValue = inputService.readString();
-        findResult = bookListDao.findBooksByTag(bookTag, tagValue);
+        while (!validateFlag) {
+            findBooksView.printEnterTagMessage(bookTag);
+            tagValue = inputService.readString();
+            validateFlag = bookValidator.validateTag(bookTag, tagValue);
+        }
+        findResult = bookTag.findFunction().apply(tagValue);
         findBooksView.printFindSortResult(findResult);
     }
 
@@ -158,19 +162,19 @@ public class BookWarehouseController {
         return BookTag.values()[choice - 1];
     }
 
-    public void sortBooksActions() {
+    public void sortBooks() {
         ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
         BookTag bookTag;
         List<Book> findResult;
         findBooksView.printFindMenu();
         bookTag = chooseFindTag();
-        findResult = bookListDao.sortBooksByTag(bookTag);
+        findResult = (List<Book>) bookTag.sortFunction().apply("");
         findBooksView.printFindSortResult(findResult);
     }
 
-    private void viewAllActions() {
+    private void viewAll() {
         ConsoleWarehouseView view = new ConsoleWarehouseView();
-        List<Book> result = bookListDao.getAll();
+        List<Book> result = bookListDao.findAll();
         view.printWarehouse(result);
     }
 }
