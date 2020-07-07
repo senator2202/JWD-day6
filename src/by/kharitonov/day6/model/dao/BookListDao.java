@@ -1,9 +1,7 @@
 package by.kharitonov.day6.model.dao;
 
-import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import com.sun.istack.internal.NotNull;
 
 import java.util.List;
 import java.util.Optional;

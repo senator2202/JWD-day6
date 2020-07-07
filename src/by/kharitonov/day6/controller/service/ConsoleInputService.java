@@ -12,7 +12,6 @@ public  class ConsoleInputService {
             try {
                 choice = scanner.nextInt();
             } catch (InputMismatchException e) {
-                continue;
             }
         }
         return choice;
