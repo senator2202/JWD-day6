@@ -36,7 +36,7 @@ public class BookParser {
             throw new BookProjectException("Wrong data!", e.getCause());
         }
         String publishingHouse = tags[6];
-        Book book = Book.newBuilder()
+        return Book.newBuilder()
                 .setId(id)
                 .setTitle(title)
                 .setAuthors(authorsSplit)
@@ -44,6 +44,5 @@ public class BookParser {
                 .setPages(pages)
                 .setPublishingHouse(publishingHouse)
                 .build();
-        return book;
     }
 }
