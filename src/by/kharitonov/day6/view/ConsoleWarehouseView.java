@@ -1,6 +1,6 @@
 package by.kharitonov.day6.view;
 
-import by.kharitonov.day6.model.bo.Book;
+import by.kharitonov.day6.model.entity.Book;
 
 import java.util.List;
 

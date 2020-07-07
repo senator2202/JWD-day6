@@ -1,6 +1,7 @@
-package by.kharitonov.day6.model.bo;
+package by.kharitonov.day6.model.entity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,8 +57,6 @@ public class Book {
             Book.this.id = "";
             Book.this.title = "";
             Book.this.authors = new ArrayList<>();
-            Book.this.year = 0;
-            Book.this.pages = 0;
             Book.this.publishingHouse = "";
         }
 
@@ -103,6 +102,52 @@ public class Book {
         }
     }
 
+    public static class BookAuthorsComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            if (o1.getAuthorsNumber() == o2.getAuthorsNumber()) {
+                return o1.getMainAuthor().compareTo(o2.getMainAuthor());
+            }
+            return o1.getAuthorsNumber() - o2.getAuthorsNumber();
+        }
+    }
+
+    public static class BookIdComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getId().compareTo(o2.getId());
+        }
+    }
+
+    public static class BookPagesComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getPages() - o2.getPages();
+        }
+    }
+
+    public static class BookPublishingHouseComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getPublishingHouse().compareTo(o2.getPublishingHouse());
+        }
+    }
+
+    public static class BookTitleComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getTitle().compareTo(o2.getTitle());
+        }
+    }
+
+    public static class BookYearComparator implements Comparator<Book> {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getYear() - o2.getYear();
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -128,7 +173,6 @@ public class Book {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + title.hashCode();
-        result = 31 * result + authors.hashCode();
         result = 31 * result + year;
         result = 31 * result + pages;
         result = 31 * result + publishingHouse.hashCode();
