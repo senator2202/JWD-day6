@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.validator;
+package by.kharitonov.day6.model.validator;
 
 import by.kharitonov.day6.controller.type.BookTag;
 

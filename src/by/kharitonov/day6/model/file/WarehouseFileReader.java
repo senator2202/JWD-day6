@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.file;
+package by.kharitonov.day6.model.file;
 
 import by.kharitonov.day6.model.exception.BookProjectException;
 

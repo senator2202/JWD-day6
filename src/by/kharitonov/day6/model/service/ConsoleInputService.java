@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.service;
+package by.kharitonov.day6.model.service;
 
 import java.util.InputMismatchException;
 import java.util.OptionalInt;

@@ -1,6 +1,6 @@
 package by.kharitonov.day6.model.entity;
 
-import by.kharitonov.day6.controller.file.WarehouseFileReader;
+import by.kharitonov.day6.model.file.WarehouseFileReader;
 import by.kharitonov.day6.controller.parser.BookParser;
 import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.exception.BookProjectException;

@@ -1,9 +1,9 @@
 package by.kharitonov.day6.controller;
 
-import by.kharitonov.day6.controller.service.ConsoleInputService;
+import by.kharitonov.day6.model.service.ConsoleInputService;
 import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.controller.type.DaoAction;
-import by.kharitonov.day6.controller.validator.BookValidator;
+import by.kharitonov.day6.model.validator.BookValidator;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
