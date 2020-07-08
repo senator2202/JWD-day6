@@ -1,5 +1,7 @@
 package by.kharitonov.day6.model.entity;
 
+import by.kharitonov.day6.model.generator.IdGenerator;
+
 import java.util.*;
 
 public class Book {
@@ -86,8 +88,7 @@ public class Book {
 
         public Book build() {
             if (Book.this.id.isEmpty()) {
-                UUID uuid = UUID.randomUUID();
-                Book.this.id = uuid.toString();
+                Book.this.id = IdGenerator.generateId();
             }
             return Book.this;
         }
@@ -137,7 +138,6 @@ public class Book {
             return o1.getYear() - o2.getYear();
         }
     }
-
 
     @Override
     public boolean equals(Object o) {

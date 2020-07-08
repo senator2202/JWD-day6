@@ -6,7 +6,7 @@ public enum DaoAction {
     REMOVE_BOOK(2),
     FIND_BOOK_BY_TAG(3),
     SORT_BOOKS_BY_TAG(4),
-    VIEW_ALL(5);
+    FIND_ALL(5);
 
     private final int index;
 

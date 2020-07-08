@@ -8,7 +8,19 @@ import java.util.List;
 import java.util.function.Function;
 
 public enum BookTag {
-    ID, TITLE, AUTHOR, YEAR, PAGES, PUBLISHING_HOUSE;
+    ID("id"), TITLE("title"), AUTHORS("authors"),
+    YEAR("year"), PAGES("number of pages"),
+    PUBLISHING_HOUSE("publishing house");
+
+    private final String tagName;
+
+    BookTag(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public String getTagName() {
+        return tagName;
+    }
 
     public Function findFunction() {
         BookListDao bookListDao = new BookListDaoImpl();
@@ -19,7 +31,7 @@ public enum BookTag {
             case TITLE:
                 findFunction = value -> bookListDao.findBooksByTitle(value);
                 break;
-            case AUTHOR:
+            case AUTHORS:
                 findFunction = value -> bookListDao.findBooksByAuthor(value);
                 break;
             case YEAR:
@@ -46,7 +58,7 @@ public enum BookTag {
             case TITLE:
                 sortFucntion = value -> bookListDao.sortBooksByTitle();
                 break;
-            case AUTHOR:
+            case AUTHORS:
                 sortFucntion = value -> bookListDao.sortBooksByAuthors();
                 break;
             case YEAR:

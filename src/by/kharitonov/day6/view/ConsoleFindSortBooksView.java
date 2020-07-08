@@ -1,6 +1,5 @@
 package by.kharitonov.day6.view;
 
-import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.entity.Book;
 
 import java.util.List;
@@ -15,14 +14,9 @@ public class ConsoleFindSortBooksView {
                     "4 - year;\n" +
                     "5 - pages;\n" +
                     "6 - publishing house.\n";
-    private static final String ENTER_TAG_MESSAGE = "Enter %s:";
 
-    public void printFindMenu() {
+    public void printTagMenu() {
         System.out.println(TAG_MENU);
-    }
-
-    public void printEnterTagMessage(BookTag bookTag) {
-        System.out.println(String.format(ENTER_TAG_MESSAGE, bookTag));
     }
 
     public void printFindSortResult(Object object) {

@@ -1,9 +1,9 @@
 package by.kharitonov.day6.model.entity;
 
-import by.kharitonov.day6.model.file.WarehouseFileReader;
 import by.kharitonov.day6.controller.parser.BookParser;
 import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.model.exception.BookProjectException;
+import by.kharitonov.day6.model.file.WarehouseFileReader;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,10 +33,6 @@ public class BookWarehouse {
         return bookWarehouseInstance;
     }
 
-    public int size() {
-        return books.size();
-    }
-
     public void add(Book book) throws BookProjectException {
         if (book == null) {
             throw new BookProjectException("Book has null pointer!");
@@ -58,33 +54,6 @@ public class BookWarehouse {
         if (!flag) {
             throw new BookProjectException("Such book doesn't exist!");
         }
-    }
-
-    public List<Book> sort(BookTag bookTag) {
-        List<Book> list = new ArrayList<>(books);
-        Comparator<Book> comparator = null;
-        switch (bookTag) {
-            case ID:
-                comparator = new Book.BookIdComparator();
-                break;
-            case TITLE:
-                comparator = new Book.BookTitleComparator();
-                break;
-            case AUTHOR:
-                comparator = new Book.BookAuthorsComparator();
-                break;
-            case YEAR:
-                comparator = new Book.BookYearComparator();
-                break;
-            case PAGES:
-                comparator = new Book.BookPagesComparator();
-                break;
-            case PUBLISHING_HOUSE:
-                comparator = new Book.BookPublishingHouseComparator();
-                break;
-        }
-        list.sort(comparator);
-        return list;
     }
 
     public List<Book> findAll() {
