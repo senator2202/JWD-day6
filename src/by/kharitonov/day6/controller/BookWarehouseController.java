@@ -1,135 +1,87 @@
 package by.kharitonov.day6.controller;
 
-import by.kharitonov.day6.model.service.ConsoleInputService;
 import by.kharitonov.day6.controller.type.BookTag;
 import by.kharitonov.day6.controller.type.DaoAction;
-import by.kharitonov.day6.model.validator.BookValidator;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import by.kharitonov.day6.view.*;
+import by.kharitonov.day6.model.service.BookService;
+import by.kharitonov.day6.view.ConsoleDaoMessageView;
+import by.kharitonov.day6.view.ConsoleFindSortBooksView;
+import by.kharitonov.day6.view.ConsoleWarehouseView;
+import by.kharitonov.day6.view.service.UserCommunicationService;
 
 import java.util.List;
-import java.util.OptionalInt;
 
 public class BookWarehouseController {
     private final BookListDao bookListDao = new BookListDaoImpl();
-    private final ConsoleInputService inputService = new ConsoleInputService();
 
     public DaoAction chooseStartAction() {
-        ConsoleStartMenuView startMenuView = new ConsoleStartMenuView();
-        int choice;
-        startMenuView.printStartMenu();
-        choice = inputService.readMenuChoice(0, 5);
-        return DaoAction.values()[choice];
+        UserCommunicationService comunicator = new UserCommunicationService();
+        return comunicator.requestChooseDaoAction();
     }
 
     public void executeAction(DaoAction daoAction) {
         switch (daoAction) {
             case ADD_BOOK:
-                addBook();
+                //addBook();
                 break;
             case REMOVE_BOOK:
                 removeBook();
                 break;
             case FIND_BOOK_BY_TAG:
-                findBook();
+                findBooks();
                 break;
             case SORT_BOOKS_BY_TAG:
                 sortBooks();
                 break;
-            case VIEW_ALL:
-                viewAll();
+            case FIND_ALL:
+                findAll();
                 break;
             default:
                 break;
         }
     }
 
-    private void addBook() {
-        ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
-        ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
-        Book book = createBookConsole(createBookView);
+    public void addBook(Book book) {
+        BookService service =new BookService();
+        try {
+            service.addBook(book);
+        } catch (BookProjectException e) {
+            e.printStackTrace();
+        }
+        /*ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
+        Book book = createBookConsole();
         try {
             bookListDao.addBook(book);
             daoMessageView.printDaoAddMessage();
         } catch (BookProjectException e) {
             daoMessageView.printDaoMessage(e.getMessage());
-        }
+        }*/
     }
 
-    private Book createBookConsole(ConsoleCreateBookView addBookView) {
-        BookValidator bookValidator = new BookValidator();
-        String id;
-        String title;
-        OptionalInt authorsNumber = OptionalInt.empty();
-        String[] authors;
-        OptionalInt year = OptionalInt.empty();
-        OptionalInt pages = OptionalInt.empty();
-        String publishingHouse;
+    private Book createBookConsole() {
         Book book;
-        addBookView.printBookIdMessage();
-        id = inputService.readString();
-        addBookView.printBookTitleMessage();
-        title = inputService.readString();
-        while (!authorsNumber.isPresent()) {
-            addBookView.printAuthorsNumberMessage();
-            authorsNumber = inputService.readInt();
-            if (!authorsNumber.isPresent()) {
-                addBookView.printInputMismatchMessage();
-                continue;
-            }
-            if (authorsNumber.getAsInt() <= 0) {
-                addBookView.printAuthorsNumberErrorMessage();
-                authorsNumber = OptionalInt.empty();
-            }
+        UserCommunicationService communicator = new UserCommunicationService();
+        BookTag[] bookTags = BookTag.values();
+        String[] tagValues = new String[bookTags.length];
+        for (int i = 1; i < tagValues.length; i++) {
+            tagValues[i] = communicator.requestEnterTag(bookTags[i]);
         }
-        authors = new String[authorsNumber.getAsInt()];
-        for (int i = 0; i < authorsNumber.getAsInt(); i++) {
-            addBookView.printAuthorMessage(i + 1);
-            authors[i] = inputService.readString();
-        }
-        while (!year.isPresent()) {
-            addBookView.printYearMessage();
-            year = inputService.readInt();
-            if (!year.isPresent()) {
-                addBookView.printInputMismatchMessage();
-                continue;
-            }
-            if (!bookValidator.validateYear(year.getAsInt())) {
-                addBookView.printYearMismatchMessage();
-                year = OptionalInt.empty();
-            }
-        }
-        while (!pages.isPresent()) {
-            addBookView.printPagesNumberMessage();
-            pages = inputService.readInt();
-            if (!pages.isPresent()) {
-                addBookView.printInputMismatchMessage();
-                continue;
-            }
-            if (!bookValidator.validatePages(pages.getAsInt())) {
-                addBookView.printPagesMismatchMessage();
-                pages = OptionalInt.empty();
-            }
-        }
-        addBookView.printPublishingHouseMessage();
-        publishingHouse = inputService.readString();
-        book = Book.newBuilder().setPublishingHouse(publishingHouse)
-                .setId(id)
-                .setYear(year.getAsInt())
-                .setPages(pages.getAsInt())
-                .setAuthors(authors)
-                .setTitle(title)
+        book = Book.newBuilder()
+                .setTitle(tagValues[1])
+                .setAuthors(tagValues[2])
+                .setYear(Integer.parseInt(tagValues[3]))
+                .setPages(Integer.parseInt(tagValues[4]))
+                .setPublishingHouse(tagValues[5])
                 .build();
         return book;
     }
 
-    private void removeBook() {
-        ConsoleCreateBookView createBookView = new ConsoleCreateBookView();
+    public void removeBook() {
         ConsoleDaoMessageView daoMessageView = new ConsoleDaoMessageView();
-        Book book = createBookConsole(createBookView);
+        Book book = createBookConsole();
         try {
             bookListDao.removeBook(book);
             daoMessageView.printDaoRemoveMessage();
@@ -138,41 +90,30 @@ public class BookWarehouseController {
         }
     }
 
-    private void findBook() {
-        ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
-        BookValidator bookValidator = new BookValidator();
+    public void findBooks() {
+        ConsoleFindSortBooksView booksView = new ConsoleFindSortBooksView();
+        UserCommunicationService communicator = new UserCommunicationService();
         BookTag bookTag;
-        boolean validateFlag = false;
-        String tagValue = "";
+        String tagValue;
         Object findResult;
-        findBooksView.printFindMenu();
-        bookTag = chooseFindTag();
-        while (!validateFlag) {
-            findBooksView.printEnterTagMessage(bookTag);
-            tagValue = inputService.readString();
-            validateFlag = bookValidator.validateTag(bookTag, tagValue);
-        }
+        bookTag = communicator.requestChooseTag();
+        tagValue = communicator.requestEnterTag(bookTag);
         findResult = bookTag.findFunction().apply(tagValue);
-        findBooksView.printFindSortResult(findResult);
+        booksView.printFindSortResult(findResult);
     }
 
-    private BookTag chooseFindTag() {
-        int choice;
-        choice = inputService.readMenuChoice(1, 6);
-        return BookTag.values()[choice - 1];
-    }
-
-    private void sortBooks() {
-        ConsoleFindSortBooksView findBooksView = new ConsoleFindSortBooksView();
+    public void sortBooks() {
+        ConsoleFindSortBooksView booksView = new ConsoleFindSortBooksView();
+        UserCommunicationService communicator = new UserCommunicationService();
         BookTag bookTag;
         List<Book> findResult;
-        findBooksView.printFindMenu();
-        bookTag = chooseFindTag();
+        booksView.printTagMenu();
+        bookTag = communicator.requestChooseTag();
         findResult = (List<Book>) bookTag.sortFunction().apply("");
-        findBooksView.printFindSortResult(findResult);
+        booksView.printFindSortResult(findResult);
     }
 
-    private void viewAll() {
+    private void findAll() {
         ConsoleWarehouseView view = new ConsoleWarehouseView();
         List<Book> result = bookListDao.findAll();
         view.printWarehouse(result);

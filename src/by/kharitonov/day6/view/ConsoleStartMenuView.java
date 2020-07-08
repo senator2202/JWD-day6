@@ -1,16 +1,26 @@
 package by.kharitonov.day6.view;
 
-public class ConsoleStartMenuView {
-    private static final String START_MENU =
-        "Make a choice:\n" +
-                "1 - add book;\n" +
-                "2 - remove book;\n" +
-                "3 - find book by tag;\n" +
-                "4 - sort books by tag;\n" +
-                "5 - view all books;\n" +
-                "0 - exit.\n";
+import by.kharitonov.day6.controller.type.DaoAction;
+import by.kharitonov.day6.view.service.UserCommunicationService;
 
-    public void printStartMenu() {
-        System.out.println(START_MENU);
+public class ConsoleStartMenuView {
+    public void startView() {
+        UserCommunicationService communicator = new UserCommunicationService();
+        DaoAction action;
+        action = communicator.requestChooseDaoAction();
+        switch (action) {
+            case NONE:
+                break;
+            case ADD_BOOK:
+                break;
+            case REMOVE_BOOK:
+                break;
+            case FIND_BOOK_BY_TAG:
+                break;
+            case SORT_BOOKS_BY_TAG:
+                break;
+            case FIND_ALL:
+                break;
+        }
     }
 }

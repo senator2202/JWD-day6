@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.service;
+package by.kharitonov.day6.view.service;
 
 import java.util.InputMismatchException;
 import java.util.OptionalInt;
@@ -20,16 +20,5 @@ public  class ConsoleInputService {
     public  String readString() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
-    }
-
-    public OptionalInt readInt() {
-        Scanner scanner = new Scanner(System.in);
-        int result;
-        try {
-            result = scanner.nextInt();
-        } catch (InputMismatchException e) {
-            return OptionalInt.empty();
-        }
-        return OptionalInt.of(result);
     }
 }
