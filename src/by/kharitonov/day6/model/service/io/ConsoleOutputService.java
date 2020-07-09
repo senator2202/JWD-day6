@@ -1,6 +1,6 @@
-package by.kharitonov.day6.view.service;
+package by.kharitonov.day6.model.service.io;
 
-import by.kharitonov.day6.controller.type.BookTag;
+import by.kharitonov.day6.model.type.BookTag;
 
 public class ConsoleOutputService {
     private static final String START_MENU =
@@ -11,19 +11,29 @@ public class ConsoleOutputService {
                     "4 - sort books by tag;\n" +
                     "5 - view all books;\n" +
                     "0 - exit.\n";
-    private static final String INPUT_ERROR_MESSAGE =
-            "Input mismatch! Enter correct value!";
     private static final String TAG_MESSAGE = "Enter %s:";
+    private static final String TAG_MENU =
+            "Choose a tag to find by:\n" +
+                    "1 - id;\n" +
+                    "2 - title;\n" +
+                    "3 - author;\n" +
+                    "4 - year;\n" +
+                    "5 - pages;\n" +
+                    "6 - publishing house.\n";
 
     public void printStartMenu() {
         System.out.println(START_MENU);
     }
 
-    public void printInputErrorMessage() {
-        System.out.println(INPUT_ERROR_MESSAGE);
-    }
-
     public void printEnterTagMessage(BookTag bookTag) {
         System.out.println(String.format(TAG_MESSAGE, bookTag.getTagName()));
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void printTagMenu() {
+        System.out.println(TAG_MENU);
     }
 }

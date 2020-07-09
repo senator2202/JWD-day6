@@ -1,17 +1,18 @@
 package by.kharitonov.day6.model.dao;
 
+import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookListDao {
     void addBook(Book book) throws BookProjectException;
 
-    void removeBook(Book book) throws BookProjectException;
+    void removeBook(Book book, RemovingType removingType)
+            throws BookProjectException;
 
-    Optional<Book> findBookById(String id);
+    List<Book> findBookById(String id);
 
     List<Book> findBooksByTitle(String title);
 

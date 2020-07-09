@@ -2,7 +2,10 @@ package by.kharitonov.day6.model.entity;
 
 import by.kharitonov.day6.model.generator.IdGenerator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class Book {
     private String id;
@@ -174,7 +177,7 @@ public class Book {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Book{");
         sb.append("id:\"").append(id).append('\"');
-        sb.append(", name:\"").append(title).append('\"');
+        sb.append(", title:\"").append(title).append('\"');
         sb.append(", authors:").append(authors);
         sb.append(", year:").append(year);
         sb.append(", pages:").append(pages);
