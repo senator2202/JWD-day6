@@ -1,7 +1,7 @@
 package by.kharitonov.day6.view;
 
 import by.kharitonov.day6.model.type.DaoAction;
-import by.kharitonov.day6.model.service.io.UserCommunicationService;
+import by.kharitonov.day6.view.io.UserCommunicationService;
 
 public class ConsoleStartMenuView extends ConsoleView {
     @Override

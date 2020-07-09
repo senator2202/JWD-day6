@@ -1,6 +1,6 @@
 package by.kharitonov.day6.model.entity;
 
-import by.kharitonov.day6.model.generator.IdGenerator;
+import by.kharitonov.day6.model.utils.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

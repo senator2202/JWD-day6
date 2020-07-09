@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.service;
+package by.kharitonov.day6.service;
 
 import by.kharitonov.day6.model.type.BookTag;
 import by.kharitonov.day6.model.type.RemovingType;

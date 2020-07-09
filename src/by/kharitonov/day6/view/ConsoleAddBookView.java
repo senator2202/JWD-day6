@@ -1,7 +1,7 @@
 package by.kharitonov.day6.view;
 
 import by.kharitonov.day6.controller.BookWarehouseController;
-import by.kharitonov.day6.model.service.io.ConsoleOutputService;
+import by.kharitonov.day6.view.io.ConsoleOutputService;
 
 public class ConsoleAddBookView extends ConsoleView {
     @Override

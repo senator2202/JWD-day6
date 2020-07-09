@@ -1,7 +1,7 @@
 package by.kharitonov.day6.view;
 
 import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.service.io.UserCommunicationService;
+import by.kharitonov.day6.view.io.UserCommunicationService;
 
 public abstract class ConsoleView {
     protected String[] inputBookConsole() {

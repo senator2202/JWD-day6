@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.service.io;
+package by.kharitonov.day6.view.io;
 
 import by.kharitonov.day6.model.type.BookTag;
 
