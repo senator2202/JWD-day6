@@ -2,8 +2,8 @@ package by.kharitonov.day6.view;
 
 import by.kharitonov.day6.controller.BookWarehouseController;
 import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.service.io.ConsoleOutputService;
-import by.kharitonov.day6.model.service.io.UserCommunicationService;
+import by.kharitonov.day6.view.io.ConsoleOutputService;
+import by.kharitonov.day6.view.io.UserCommunicationService;
 
 public class ConsoleSortBooksView extends ConsoleView {
     @Override

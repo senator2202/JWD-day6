@@ -2,7 +2,7 @@ package by.kharitonov.day6.controller;
 
 import by.kharitonov.day6.model.type.BookTag;
 import by.kharitonov.day6.model.exception.BookProjectException;
-import by.kharitonov.day6.model.service.BookService;
+import by.kharitonov.day6.service.BookService;
 
 public class BookWarehouseController {
     private static final String ADD_MESSAGE = "Book was added to warehouse!";

@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.service.io;
+package by.kharitonov.day6.view.io;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
