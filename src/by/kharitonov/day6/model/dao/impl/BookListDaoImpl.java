@@ -1,5 +1,6 @@
 package by.kharitonov.day6.model.dao.impl;
 
+import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
@@ -7,7 +8,6 @@ import by.kharitonov.day6.model.exception.BookProjectException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BookListDaoImpl implements BookListDao {
     private final BookWarehouse warehouse;
@@ -22,21 +22,46 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public void removeBook(Book book) throws BookProjectException {
-        warehouse.remove(book);
+    public void removeBook(Book removingBook, RemovingType removingType)
+            throws BookProjectException {
+        if (removingType == RemovingType.COMPLETE_MATCH) {
+            warehouse.remove(removingBook);
+        }
+        if (removingType == RemovingType.IGNORE_ID) {
+            if (!removeSimilar(removingBook)) {
+                throw new BookProjectException("Such book doesn't exist!");
+            }
+        }
+    }
+
+    private boolean removeSimilar(Book removingBook) throws BookProjectException {
+        List<Book> allBooks = warehouse.findAll();
+        boolean result = false;
+        for (Book book : allBooks) {
+            if (book.getTitle().equals(removingBook.getTitle()) &&
+                    book.getAuthors().equals(removingBook.getAuthors()) &&
+                    book.getYear() == removingBook.getYear() &&
+                    book.getPages() == removingBook.getPages() &&
+                    book.getPublishingHouse()
+                            .equals(removingBook.getPublishingHouse())) {
+                warehouse.remove(book);
+                result = true;
+            }
+        }
+        return result;
     }
 
     @Override
-    public Optional<Book> findBookById(String id) {
+    public List<Book> findBookById(String id) {
         List<Book> allBooks = warehouse.findAll();
-        Optional<Book> optionalBook = Optional.empty();
+        List<Book> searchedBook = new ArrayList<>();
         for (Book book : allBooks) {
             if (book.getId().equals(id)) {
-                optionalBook = Optional.of(book);
+                searchedBook.add(book);
                 break;
             }
         }
-        return optionalBook;
+        return searchedBook;
     }
 
     @Override

@@ -1,11 +1,10 @@
-package by.kharitonov.day6.view.service;
+package by.kharitonov.day6.model.service.io;
 
 import java.util.InputMismatchException;
-import java.util.OptionalInt;
 import java.util.Scanner;
 
-public  class ConsoleInputService {
-    public  int readMenuChoice(int rangeStart, int rangeEnd) {
+public class ConsoleInputService {
+    public int readMenuChoice(int rangeStart, int rangeEnd) {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
         while (choice < rangeStart || choice > rangeEnd) {
@@ -17,7 +16,7 @@ public  class ConsoleInputService {
         return choice;
     }
 
-    public  String readString() {
+    public String readString() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }

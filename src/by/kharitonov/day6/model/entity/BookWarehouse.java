@@ -1,12 +1,10 @@
 package by.kharitonov.day6.model.entity;
 
-import by.kharitonov.day6.controller.parser.BookParser;
-import by.kharitonov.day6.controller.type.BookTag;
+import by.kharitonov.day6.model.parser.BookParser;
 import by.kharitonov.day6.model.exception.BookProjectException;
 import by.kharitonov.day6.model.file.WarehouseFileReader;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class BookWarehouse {

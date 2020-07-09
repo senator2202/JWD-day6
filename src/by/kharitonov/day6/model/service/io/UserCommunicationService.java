@@ -1,10 +1,7 @@
-package by.kharitonov.day6.view.service;
+package by.kharitonov.day6.model.service.io;
 
-import by.kharitonov.day6.controller.type.BookTag;
-import by.kharitonov.day6.controller.type.DaoAction;
-import by.kharitonov.day6.model.validator.BookValidator;
-import by.kharitonov.day6.view.ConsoleAddBookView;
-import by.kharitonov.day6.view.ConsoleFindSortBooksView;
+import by.kharitonov.day6.model.type.BookTag;
+import by.kharitonov.day6.model.type.DaoAction;
 
 public class UserCommunicationService {
     private static final int MENU_START = 0;
@@ -15,21 +12,13 @@ public class UserCommunicationService {
     public String requestEnterTag(BookTag bookTag) {
         ConsoleOutputService outputService = new ConsoleOutputService();
         ConsoleInputService inputService = new ConsoleInputService();
-        BookValidator validator = new BookValidator();
-        String tagvalue;
-        boolean validateFlag;
-        do {
-            outputService.printEnterTagMessage(bookTag);
-            tagvalue = inputService.readString();
-            validateFlag = validator.validateTag(bookTag, tagvalue);
-            if (!validateFlag) {
-                outputService.printInputErrorMessage();
-            }
-        } while (!validateFlag);
-        return tagvalue;
+        String tagValue;
+        outputService.printEnterTagMessage(bookTag);
+        tagValue = inputService.readString();
+        return tagValue;
     }
 
-    public DaoAction requestChooseDaoAction() {
+    public DaoAction requestChooseStartAction() {
         ConsoleOutputService outputService = new ConsoleOutputService();
         ConsoleInputService inputService = new ConsoleInputService();
         int choice;
@@ -39,10 +28,10 @@ public class UserCommunicationService {
     }
 
     public BookTag requestChooseTag() {
-        ConsoleFindSortBooksView booksView = new ConsoleFindSortBooksView();
+        ConsoleOutputService outputService = new ConsoleOutputService();
         ConsoleInputService inputService = new ConsoleInputService();
         int choice;
-        booksView.printTagMenu();
+        outputService.printTagMenu();
         choice = inputService.readMenuChoice(TAG_START, TAG_END);
         return BookTag.values()[choice - 1];
     }

@@ -1,26 +1,34 @@
 package by.kharitonov.day6.view;
 
-import by.kharitonov.day6.controller.type.DaoAction;
-import by.kharitonov.day6.view.service.UserCommunicationService;
+import by.kharitonov.day6.model.type.DaoAction;
+import by.kharitonov.day6.model.service.io.UserCommunicationService;
 
-public class ConsoleStartMenuView {
+public class ConsoleStartMenuView extends ConsoleView {
+    @Override
     public void startView() {
         UserCommunicationService communicator = new UserCommunicationService();
         DaoAction action;
-        action = communicator.requestChooseDaoAction();
-        switch (action) {
-            case NONE:
-                break;
-            case ADD_BOOK:
-                break;
-            case REMOVE_BOOK:
-                break;
-            case FIND_BOOK_BY_TAG:
-                break;
-            case SORT_BOOKS_BY_TAG:
-                break;
-            case FIND_ALL:
-                break;
-        }
+        do {
+            action = communicator.requestChooseStartAction();
+            switch (action) {
+                case NONE:
+                    break;
+                case ADD_BOOK:
+                    new ConsoleAddBookView().startView();
+                    break;
+                case REMOVE_BOOK:
+                    new ConsoleRemoveBookView().startView();
+                    break;
+                case FIND_BOOK_BY_TAG:
+                    new ConsoleFindBooksView().startView();
+                    break;
+                case SORT_BOOKS_BY_TAG:
+                    new ConsoleSortBooksView().startView();
+                    break;
+                case FIND_ALL:
+                    new ConsoleAllView().startView();
+                    break;
+            }
+        } while (action != DaoAction.NONE);
     }
 }

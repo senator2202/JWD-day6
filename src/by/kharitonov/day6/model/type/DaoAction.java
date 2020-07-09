@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.type;
+package by.kharitonov.day6.model.type;
 
 public enum DaoAction {
     NONE(0),

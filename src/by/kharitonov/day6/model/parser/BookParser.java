@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.parser;
+package by.kharitonov.day6.model.parser;
 
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
@@ -9,6 +9,7 @@ import java.util.List;
 public class BookParser {
     private static final String SPLIT_TAGS =
             "(\\s*\\w+=\")|(\"\\s+\\w+=\")|(\")";
+    private static final String AUTHORS_SPLIT = ",";
 
     public List<Book> parseBookList(String data) throws BookProjectException {
         List<Book> parsedList = new ArrayList<>();
@@ -26,7 +27,7 @@ public class BookParser {
         String id = tags[1];
         String title = tags[2];
         String stringAuthors = tags[3];
-        String[] authorsSplit = stringAuthors.split(",");
+        String[] authorsSplit = stringAuthors.split(AUTHORS_SPLIT);
         int year;
         int pages;
         try {
