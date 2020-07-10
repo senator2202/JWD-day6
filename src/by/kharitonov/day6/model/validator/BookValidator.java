@@ -12,6 +12,7 @@ public class BookValidator {
     private static final int MAX_PAGES = 2000;
     private static final int YEAR_INDEX = 3;
     private static final int PAGES_INDEX = 4;
+    private static final int TAG_NUMBERS = 6;
 
     static {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(),
@@ -47,7 +48,7 @@ public class BookValidator {
     }
 
     public boolean validateBookTags(String[] tagValues) {
-        if (tagValues == null || tagValues.length == 0) {
+        if (tagValues == null || tagValues.length != TAG_NUMBERS ) {
             return false;
         }
         boolean result = true;

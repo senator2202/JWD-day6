@@ -1,9 +1,5 @@
 package by.kharitonov.day6.model.entity;
 
-import by.kharitonov.day6.model.parser.BookParser;
-import by.kharitonov.day6.model.exception.BookProjectException;
-import by.kharitonov.day6.model.file.WarehouseFileReader;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +10,15 @@ public class BookWarehouse {
     private List<Book> books;
 
     private BookWarehouse() {
-        try {
+        books = new ArrayList<>();
+        /*try {
             WarehouseFileReader fileReader = new WarehouseFileReader();
             String data = fileReader.read(DEFAULT_FILEPATH);
             BookParser parser = new BookParser();
             books = parser.parseBookList(data);
         } catch (BookProjectException e) {
             books = new ArrayList<>();
-        }
+        }*/
     }
 
     public static BookWarehouse getInstance() {
@@ -31,27 +28,26 @@ public class BookWarehouse {
         return bookWarehouseInstance;
     }
 
-    public void add(Book book) throws BookProjectException {
-        if (book == null) {
-            throw new BookProjectException("Book has null pointer!");
-        }
-        if (books.indexOf(book) != -1) {
-            throw new BookProjectException("This book already exists!");
-        }
-        if (books.size() == CAPACITY) {
-            throw new BookProjectException("Warehouse is full!");
-        }
+    public void add(Book book) {
         books.add(book);
     }
 
-    public void remove(Book book) throws BookProjectException {
-        if (book == null) {
-            throw new BookProjectException("Book has null pointer!");
+    public boolean remove(Book book) {
+        return books.remove(book);
+    }
+
+    public boolean isFull() {
+        boolean result;
+        if (books.size() < CAPACITY) {
+            result = false;
+        } else {
+            result = true;
         }
-        boolean flag = books.remove(book);
-        if (!flag) {
-            throw new BookProjectException("Such book doesn't exist!");
-        }
+        return result;
+    }
+
+    public int indexOf(Book book) {
+        return books.indexOf(book);
     }
 
     public List<Book> findAll() {

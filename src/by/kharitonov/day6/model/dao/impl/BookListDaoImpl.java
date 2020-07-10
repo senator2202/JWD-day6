@@ -1,10 +1,10 @@
 package by.kharitonov.day6.model.dao.impl;
 
-import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.exception.BookProjectException;
+import by.kharitonov.day6.model.exception.DaoException;
+import by.kharitonov.day6.model.type.RemovingType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +17,37 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public void addBook(Book book) throws BookProjectException {
+    public void addBook(Book book) throws DaoException {
+        List<Book> allbooks = warehouse.findAll();
+        if (allbooks.contains(book)) {
+            throw new DaoException("This book already exists!");
+        }
+        if (warehouse.isFull()) {
+            throw new DaoException("Warehouse is full!");
+        }
         warehouse.add(book);
     }
 
     @Override
     public void removeBook(Book removingBook, RemovingType removingType)
-            throws BookProjectException {
-        if (removingType == RemovingType.COMPLETE_MATCH) {
-            warehouse.remove(removingBook);
+            throws DaoException {
+        boolean exceptionFlag = false;
+        if (removingType == RemovingType.ID_MATCH) {
+            if (!warehouse.remove(removingBook)) {
+                exceptionFlag = true;
+            }
         }
         if (removingType == RemovingType.IGNORE_ID) {
             if (!removeSimilar(removingBook)) {
-                throw new BookProjectException("Such book doesn't exist!");
+                exceptionFlag = true;
             }
+        }
+        if (exceptionFlag) {
+            throw new DaoException("Such book doesn't exist!");
         }
     }
 
-    private boolean removeSimilar(Book removingBook) throws BookProjectException {
+    private boolean removeSimilar(Book removingBook) {
         List<Book> allBooks = warehouse.findAll();
         boolean result = false;
         for (Book book : allBooks) {
