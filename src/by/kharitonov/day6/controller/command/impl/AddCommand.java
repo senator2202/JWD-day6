@@ -1,19 +1,28 @@
 package by.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
+import by.kharitonov.day6.controller.entity.CommandResult;
+import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookServiceException;
 import by.kharitonov.day6.service.BookService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class AddCommand implements ActionCommand {
     @Override
-    public Object execute(String ... content) {
+    public CommandResult execute(String... content) {
         BookService service = new BookService();
+        CommandResult commandResult;
         try {
-            service.addBook(content);
+            List<Book> bookList = service.addBook(content);
+            commandResult = new CommandResult(bookList, Optional.empty());
         } catch (BookServiceException e) {
-            e.printStackTrace();
+            List<Book> bookList = new ArrayList<>();
+            commandResult = new CommandResult(bookList, Optional.of(e));
         }
-        return null;
+        return commandResult;
     }
 }
