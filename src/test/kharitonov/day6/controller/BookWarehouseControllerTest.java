@@ -69,7 +69,7 @@ public class BookWarehouseControllerTest {
     }
 
     @Test
-    public void testProcessRequestRemoveCompleteMatch() {
+    public void testProcessRequestRemoveMatchId() {
         Book book = Book.newBuilder()
                 .setId("2")
                 .setTitle("Harry Potter and the deathly hallows")
