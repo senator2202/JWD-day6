@@ -4,7 +4,6 @@ import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.model.exception.DaoException;
-import by.kharitonov.day6.model.type.RemovingType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +28,9 @@ public class BookListDaoImpl implements BookListDao {
     }
 
     @Override
-    public void removeBook(Book removingBook, RemovingType removingType)
+    public void removeBook(Book removingBook)
             throws DaoException {
-        boolean exceptionFlag = false;
-        if (removingType == RemovingType.ID_MATCH) {
-            if (!warehouse.remove(removingBook)) {
-                exceptionFlag = true;
-            }
-        }
-        if (removingType == RemovingType.IGNORE_ID) {
-            if (!removeSimilar(removingBook)) {
-                exceptionFlag = true;
-            }
-        }
-        if (exceptionFlag) {
+        if (!removeSimilar(removingBook)) {
             throw new DaoException("Such book doesn't exist!");
         }
     }

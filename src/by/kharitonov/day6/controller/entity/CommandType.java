@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.type;
+package by.kharitonov.day6.controller.entity;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
 import by.kharitonov.day6.controller.command.impl.AddCommand;

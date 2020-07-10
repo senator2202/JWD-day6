@@ -7,17 +7,20 @@ import by.kharitonov.day6.model.exception.BookProjectException;
 import by.kharitonov.day6.model.exception.BookServiceException;
 import by.kharitonov.day6.model.exception.DaoException;
 import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.validator.BookValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+
+import static by.kharitonov.day6.model.validator.BookValidator.BOOK_TAG_INDEX;
+import static by.kharitonov.day6.model.validator.BookValidator.TAG_VALUE_INDEX;
 
 public class BookService {
     private Book prepareBook(String[] tagValues)
             throws BookServiceException {
         BookValidator validator = new BookValidator();
-        if (!validator.validateBookTags(tagValues)) {
+        if (!validator.validateAllBookTags(tagValues)) {
             throw new BookServiceException("Invalid book parameters!");
         }
         Book book;
@@ -32,32 +35,41 @@ public class BookService {
         return book;
     }
 
-    public void addBook(String[] tagValues) throws BookServiceException {
+    public List<Book> addBook(String[] tagValues) throws BookServiceException {
         Book book = prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
+        List<Book> resultList = new ArrayList<>();
         try {
             dao.addBook(book);
+            resultList.add(book);
+            return resultList;
         } catch (DaoException e) {
             throw new BookServiceException(e.getMessage(), e.getCause());
         }
     }
 
-    public void removeBook(String[] tagValues) throws BookServiceException {
+    public List<Book> removeBook(String[] tagValues) throws BookServiceException {
         Book book = prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
+        List<Book> resultList = new ArrayList<>();
         try {
-            dao.removeBook(book, RemovingType.IGNORE_ID);
+            dao.removeBook(book);
+            resultList.add(book);
+            return resultList;
         } catch (DaoException e) {
             throw new BookServiceException(e.getMessage(), e.getCause());
         }
     }
 
-    public String findBooks(BookTag bookTag, String tagValue)
+    public String findBooks(String[] parameters)
             throws BookProjectException {
         BookValidator validator = new BookValidator();
-        if (!validator.validateTag(bookTag, tagValue)) {
+        if (!validator.validateFindParameters(parameters)) {
             throw new BookProjectException("Invalid tag data!");
         }
+        BookTag bookTag = BookTag
+                .valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
+        String tagValue = parameters[TAG_VALUE_INDEX];
         BookListDao dao = new BookListDaoImpl();
         List<Book> foundList;
         Function<String, List<Book>> findFunction = null;

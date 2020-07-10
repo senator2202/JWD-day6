@@ -13,6 +13,9 @@ public class BookValidator {
     private static final int YEAR_INDEX = 3;
     private static final int PAGES_INDEX = 4;
     private static final int TAG_NUMBERS = 6;
+    private static final int FIND_PARAMETERS_NUMBER = 2;
+    public static final int BOOK_TAG_INDEX = 0;
+    public static final int TAG_VALUE_INDEX = 1;
 
     static {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(),
@@ -47,8 +50,8 @@ public class BookValidator {
         return result;
     }
 
-    public boolean validateBookTags(String[] tagValues) {
-        if (tagValues == null || tagValues.length != TAG_NUMBERS ) {
+    public boolean validateAllBookTags(String[] tagValues) {
+        if (tagValues == null || tagValues.length != TAG_NUMBERS) {
             return false;
         }
         boolean result = true;
@@ -59,6 +62,21 @@ public class BookValidator {
                 result = false;
             }
         } catch (NumberFormatException e) {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean validateFindParameters(String[] parameters) {
+        if (parameters.length != FIND_PARAMETERS_NUMBER) {
+            return false;
+        }
+        boolean result;
+        try {
+            BookTag bookTag =
+                    BookTag.valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
+            result = validateTag(bookTag, parameters[TAG_VALUE_INDEX]);
+        } catch (IllegalArgumentException e) {
             result = false;
         }
         return result;
