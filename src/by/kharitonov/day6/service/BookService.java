@@ -1,11 +1,13 @@
 package by.kharitonov.day6.service;
 
-import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.exception.BookProjectException;
+import by.kharitonov.day6.model.exception.BookServiceException;
+import by.kharitonov.day6.model.exception.DaoException;
+import by.kharitonov.day6.model.type.BookTag;
+import by.kharitonov.day6.model.type.RemovingType;
 import by.kharitonov.day6.model.validator.BookValidator;
 
 import java.util.List;
@@ -13,16 +15,16 @@ import java.util.function.Function;
 
 public class BookService {
     private Book prepareBook(String[] tagValues)
-            throws BookProjectException {
+            throws BookServiceException {
         BookValidator validator = new BookValidator();
         if (!validator.validateBookTags(tagValues)) {
-            throw new BookProjectException("Invalid book parameters!");
+            throw new BookServiceException("Invalid book parameters!");
         }
         Book book;
         book = Book.newBuilder()
                 .setId(tagValues[0])
                 .setTitle(tagValues[1])
-                .setAuthors(tagValues[2])
+                .setAuthors(tagValues[2].split(", "))
                 .setYear(Integer.parseInt(tagValues[3]))
                 .setPages(Integer.parseInt(tagValues[4]))
                 .setPublishingHouse(tagValues[5])
@@ -30,16 +32,24 @@ public class BookService {
         return book;
     }
 
-    public void addBook(String[] tagValues) throws BookProjectException {
+    public void addBook(String[] tagValues) throws BookServiceException {
         Book book = prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
-        dao.addBook(book);
+        try {
+            dao.addBook(book);
+        } catch (DaoException e) {
+            throw new BookServiceException(e.getMessage(), e.getCause());
+        }
     }
 
-    public void removeBook(String[] tagValues) throws BookProjectException {
+    public void removeBook(String[] tagValues) throws BookServiceException {
         Book book = prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
-        dao.removeBook(book, RemovingType.IGNORE_ID);
+        try {
+            dao.removeBook(book, RemovingType.IGNORE_ID);
+        } catch (DaoException e) {
+            throw new BookServiceException(e.getMessage(), e.getCause());
+        }
     }
 
     public String findBooks(BookTag bookTag, String tagValue)

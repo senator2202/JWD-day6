@@ -2,15 +2,13 @@ package by.kharitonov.day6.model.entity;
 
 import by.kharitonov.day6.model.utils.IdGenerator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public class Book {
     private String id;
     private String title;
-    private List<String> authors;
+    private String[] authors;
     private int year;
     private int pages;
     private String publishingHouse;
@@ -43,7 +41,7 @@ public class Book {
     }
 
     private String getMainAuthor() {
-        return authors.isEmpty() ? "" : authors.get(0);
+        return authors.length == 0 ? "" : authors[0];
     }
 
     public static Builder newBuilder() {
@@ -54,7 +52,7 @@ public class Book {
         private Builder() {
             Book.this.id = "";
             Book.this.title = "";
-            Book.this.authors = new ArrayList<>();
+            Book.this.authors = new String[0];
             Book.this.publishingHouse = "";
         }
 
@@ -69,8 +67,7 @@ public class Book {
         }
 
         public Builder setAuthors(String... authors) {
-            Book.this.authors = new ArrayList<>();
-            Book.this.authors.addAll(Arrays.asList(authors));
+            Book.this.authors = authors;
             return this;
         }
 
@@ -100,10 +97,10 @@ public class Book {
     public static class BookAuthorsComparator implements Comparator<Book> {
         @Override
         public int compare(Book o1, Book o2) {
-            if (o1.authors.size() == o2.authors.size()) {
+            if (o1.authors.length == o2.authors.length) {
                 return o1.getMainAuthor().compareTo(o2.getMainAuthor());
             }
-            return o1.authors.size() - o2.authors.size();
+            return o1.authors.length - o2.authors.length;
         }
     }
 
@@ -156,7 +153,7 @@ public class Book {
                 pages != book.pages ||
                 !id.equals(book.id) ||
                 !title.equals(book.title) ||
-                !authors.equals(book.authors) ||
+                !Arrays.equals(authors,book.authors) ||
                 !publishingHouse.equals(book.publishingHouse)) {
             result = false;
         }
