@@ -9,14 +9,18 @@ import java.util.TimeZone;
 public class BookValidator {
     public static final int BOOK_TAG_INDEX = 0;
     public static final int TAG_VALUE_INDEX = 1;
-    private static final int MIN_YEAR = 1800;
-    private static final int MAX_YEAR;
-    private static final int MAX_PAGES = 2000;
-    private static final int YEAR_INDEX = 3;
-    private static final int PAGES_INDEX = 4;
+    public static final int ID_INDEX = 0;
+    public static final int TITLE_INDEX = 1;
+    public static final int AUTHORS_INDEX = 2;
+    public static final int YEAR_INDEX = 3;
+    public static final int PAGES_INDEX = 4;
+    public static final int PUBISHING_HOUSE_INDEX = 5;
     private static final int TAG_NUMBERS = 6;
     private static final int FIND_PARAMETERS_NUMBER = 2;
     private static final int SORT_PARAMETERS_NUMBER = 1;
+    private static final int MIN_YEAR = 1800;
+    private static final int MAX_YEAR;
+    private static final int MAX_PAGES = 2000;
 
     static {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(),
