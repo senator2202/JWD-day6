@@ -7,7 +7,6 @@ import by.kharitonov.day6.model.exception.BookServiceException;
 import by.kharitonov.day6.service.BookService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

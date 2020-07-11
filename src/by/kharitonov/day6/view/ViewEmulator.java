@@ -3,5 +3,16 @@ package by.kharitonov.day6.view;
 import by.kharitonov.day6.controller.entity.CommandResult;
 
 public class ViewEmulator {
-    public static CommandResult commandResult = new CommandResult();
+    private static CommandResult commandResult = new CommandResult();
+
+    private ViewEmulator() {
+    }
+
+    public static CommandResult getCommandResult() {
+        return commandResult;
+    }
+
+    public static void setCommandResult(CommandResult commandResult) {
+        ViewEmulator.commandResult = commandResult;
+    }
 }

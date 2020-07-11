@@ -61,11 +61,11 @@ public class BookService {
         }
     }
 
-    public String findBooks(String[] parameters)
-            throws BookProjectException {
+    public List<Book> findBooks(String[] parameters)
+            throws BookServiceException {
         BookValidator validator = new BookValidator();
         if (!validator.validateFindParameters(parameters)) {
-            throw new BookProjectException("Invalid tag data!");
+            throw new BookServiceException("Invalid tag data!");
         }
         BookTag bookTag = BookTag
                 .valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
@@ -95,10 +95,16 @@ public class BookService {
                 break;
         }
         foundList = findFunction.apply(tagValue);
-        return listToString(foundList);
+        return foundList;
     }
 
-    public String sortBooks(BookTag bookTag) {
+    public List<Book> sortBooks(String[] parameters) throws BookServiceException {
+        BookValidator validator = new BookValidator();
+        if (!validator.validateSortParameters(parameters)) {
+            throw new BookServiceException("Invalid tag data!");
+        }
+        BookTag bookTag = BookTag
+                .valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
         BookListDao dao = new BookListDaoImpl();
         List<Book> sortedList;
         Function<String, List<Book>> sortFunction = null;
@@ -123,16 +129,16 @@ public class BookService {
                 break;
         }
         sortedList = sortFunction.apply("");
-        return listToString(sortedList);
+        return sortedList;
     }
 
-    public String findAll() {
+    /*public String findAll() {
         BookListDao dao = new BookListDaoImpl();
         List<Book> list = dao.findAll();
         return listToString(list);
-    }
+    }*/
 
-    private String listToString(List<Book> list) {
+    /*private String listToString(List<Book> list) {
         if (list.isEmpty()) {
             return "";
         }
@@ -141,5 +147,5 @@ public class BookService {
             sb.append("\n").append(list.get(i));
         }
         return sb.toString();
-    }
+    }*/
 }
