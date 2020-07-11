@@ -13,9 +13,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static by.kharitonov.day6.model.validator.BookValidator.BOOK_TAG_INDEX;
-import static by.kharitonov.day6.model.validator.BookValidator.TAG_VALUE_INDEX;
-
 public class BookService {
     private Book prepareBook(String[] tagValues)
             throws BookServiceException {
@@ -25,12 +22,14 @@ public class BookService {
         }
         Book book;
         book = Book.newBuilder()
-                .setId(tagValues[0])
-                .setTitle(tagValues[1])
-                .setAuthors(tagValues[2].split(", "))
-                .setYear(Integer.parseInt(tagValues[3]))
-                .setPages(Integer.parseInt(tagValues[4]))
-                .setPublishingHouse(tagValues[5])
+                .setId(tagValues[BookValidator.ID_INDEX])
+                .setTitle(tagValues[BookValidator.TITLE_INDEX])
+                .setAuthors(tagValues[BookValidator.AUTHORS_INDEX].split(", "))
+                .setYear(Integer.parseInt(tagValues[BookValidator.YEAR_INDEX]))
+                .setPages(Integer
+                        .parseInt(tagValues[BookValidator.PAGES_INDEX]))
+                .setPublishingHouse
+                        (tagValues[BookValidator.PUBISHING_HOUSE_INDEX])
                 .build();
         return book;
     }
@@ -48,7 +47,8 @@ public class BookService {
         }
     }
 
-    public List<Book> removeBook(String[] tagValues) throws BookServiceException {
+    public List<Book> removeBook(String[] tagValues)
+            throws BookServiceException {
         Book book = prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
         List<Book> resultList = new ArrayList<>();
@@ -68,8 +68,9 @@ public class BookService {
             throw new BookServiceException("Invalid tag data!");
         }
         BookTag bookTag = BookTag
-                .valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
-        String tagValue = parameters[TAG_VALUE_INDEX];
+                .valueOf(parameters[BookValidator.BOOK_TAG_INDEX]
+                        .toUpperCase());
+        String tagValue = parameters[BookValidator.TAG_VALUE_INDEX];
         List<Book> foundList;
         Function<String, List<Book>> findFunction = defineFindFunction(bookTag);
         foundList = findFunction.apply(tagValue);
@@ -109,7 +110,8 @@ public class BookService {
             throw new BookServiceException("Invalid tag data!");
         }
         BookTag bookTag = BookTag
-                .valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
+                .valueOf(parameters[BookValidator.BOOK_TAG_INDEX]
+                        .toUpperCase());
         List<Book> sortedList;
         Supplier<List<Book>> sortSupplier = defineSortSupplier(bookTag);
         sortedList = sortSupplier.get();
