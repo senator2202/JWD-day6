@@ -1,27 +1,25 @@
-package by.kharitonov.day6.controller.entity;
-
-import by.kharitonov.day6.model.entity.Book;
+package by.kharitonov.day6.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CommandResult {
-    private Optional<Exception> exception;
-    private List<Book> bookList;
+    private final Exception exception;
+    private final List<Book> bookList;
 
     public CommandResult() {
-        exception = Optional.empty();
+        exception = null;
         bookList = new ArrayList<>();
     }
 
-    public CommandResult(List<Book> booksList, Optional<Exception> exception) {
+    public CommandResult(List<Book> booksList, Exception exception) {
         this.bookList = booksList;
-        this.exception=exception;
+        this.exception = exception;
     }
 
     public Optional<Exception> getException() {
-        return exception;
+        return exception != null ? Optional.of(exception) : Optional.empty();
     }
 
     public List<Book> getBookList() {

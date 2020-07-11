@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookWarehouse {
-    private static BookWarehouse bookWarehouseInstance;
     private static final int CAPACITY = 100;
+    private static BookWarehouse bookWarehouseInstance;
     private List<Book> books;
 
     private BookWarehouse() {
@@ -23,18 +23,12 @@ public class BookWarehouse {
         books.add(book);
     }
 
-    public boolean remove(Book book) {
-        return books.remove(book);
+    public void remove(Book book) {
+        books.remove(book);
     }
 
     public boolean isFull() {
-        boolean result;
-        if (books.size() < CAPACITY) {
-            result = false;
-        } else {
-            result = true;
-        }
-        return result;
+        return books.size() >= CAPACITY;
     }
 
     public void removeAll() {
