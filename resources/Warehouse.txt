@@ -1,3 +1,0 @@
-id="1" title="Harry Potter" authors="Joan Roaling" year="2007" pages="800" publishingHouse="Minsk"
-id="2" title="Lord of the Rings" authors="Tolkien, Mike Tyson, Jackie Chan" year="2002" pages="900" publishingHouse="London"
-id="777" title="Digital castle" authors="Dan Braun" year="2005" pages="650" publishingHouse="Blackberry"
