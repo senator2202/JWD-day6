@@ -6,19 +6,10 @@ import java.util.List;
 public class BookWarehouse {
     private static BookWarehouse bookWarehouseInstance;
     private static final int CAPACITY = 100;
-    private static final String DEFAULT_FILEPATH = "resources\\Warehouse.txt";
     private List<Book> books;
 
     private BookWarehouse() {
         books = new ArrayList<>();
-        /*try {
-            WarehouseFileReader fileReader = new WarehouseFileReader();
-            String data = fileReader.read(DEFAULT_FILEPATH);
-            BookParser parser = new BookParser();
-            books = parser.parseBookList(data);
-        } catch (BookProjectException e) {
-            books = new ArrayList<>();
-        }*/
     }
 
     public static BookWarehouse getInstance() {
@@ -44,6 +35,10 @@ public class BookWarehouse {
             result = true;
         }
         return result;
+    }
+
+    public void removeAll() {
+        books = new ArrayList<>();
     }
 
     public int indexOf(Book book) {

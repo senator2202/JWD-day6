@@ -14,6 +14,7 @@ public class BookValidator {
     private static final int PAGES_INDEX = 4;
     private static final int TAG_NUMBERS = 6;
     private static final int FIND_PARAMETERS_NUMBER = 2;
+    private static final int SORT_PARAMETERS_NUMBER = 1;
     public static final int BOOK_TAG_INDEX = 0;
     public static final int TAG_VALUE_INDEX = 1;
 
@@ -55,6 +56,11 @@ public class BookValidator {
             return false;
         }
         boolean result = true;
+        for (String tagValue : tagValues) {
+            if (tagValue.isEmpty()) {
+                return false;
+            }
+        }
         try {
             int year = Integer.parseInt(tagValues[YEAR_INDEX]);
             int pages = Integer.parseInt(tagValues[PAGES_INDEX]);
@@ -68,7 +74,7 @@ public class BookValidator {
     }
 
     public boolean validateFindParameters(String[] parameters) {
-        if (parameters.length != FIND_PARAMETERS_NUMBER) {
+        if (parameters==null || parameters.length != FIND_PARAMETERS_NUMBER) {
             return false;
         }
         boolean result;
@@ -76,6 +82,21 @@ public class BookValidator {
             BookTag bookTag =
                     BookTag.valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
             result = validateTag(bookTag, parameters[TAG_VALUE_INDEX]);
+        } catch (IllegalArgumentException e) {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean validateSortParameters(String[] parameters) {
+        if (parameters==null || parameters.length != SORT_PARAMETERS_NUMBER) {
+            return false;
+        }
+        boolean result;
+        try {
+            BookTag bookTag =
+                    BookTag.valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
+            result = true;
         } catch (IllegalArgumentException e) {
             result = false;
         }
