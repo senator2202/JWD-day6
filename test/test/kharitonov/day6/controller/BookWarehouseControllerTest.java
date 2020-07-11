@@ -4,10 +4,7 @@ import by.kharitonov.day6.controller.BookWarehouseController;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.view.ViewEmulator;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -20,6 +17,7 @@ public class BookWarehouseControllerTest {
     private Book book2;
     private Book book3;
 
+    @BeforeClass
     @BeforeMethod
     private void setUpMethod() {
         warehouse.removeAll();
@@ -119,6 +117,23 @@ public class BookWarehouseControllerTest {
         boolean flag;
         controller.processRequest("add", tagValues);
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult().getBookList().isEmpty();
+        assertTrue(flag);
+    }
+
+    @Test
+    public void testProcessRequestAddCapacityException() {
+        String[] tagValues = {"322", "Neznaika na lune", "Bunin, Esenin",
+                "1995", "250", "Kapitoshka"};
+        boolean flag;
+        for (int i = 0; i < 97; i++) {
+            warehouse.add(book1);
+        }
+        controller.processRequest("add", tagValues);
+        flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult()
+                .getException().get().getMessage()
+                .equals("Warehouse is full!") &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);
     }
