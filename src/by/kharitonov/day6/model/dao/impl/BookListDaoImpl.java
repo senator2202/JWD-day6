@@ -17,8 +17,8 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public void addBook(Book book) throws DaoException {
-        List<Book> allbooks = warehouse.findAll();
-        if (allbooks.contains(book)) {
+        List<Book> allBooks = warehouse.findAll();
+        if (allBooks.contains(book)) {
             throw new DaoException("This book already exists!");
         }
         if (warehouse.isFull()) {
@@ -123,11 +123,6 @@ public class BookListDaoImpl implements BookListDao {
             }
         }
         return resultList;
-    }
-
-    @Override
-    public List<Book> findAll() {
-        return warehouse.findAll();
     }
 
     @Override

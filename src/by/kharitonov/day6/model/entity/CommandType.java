@@ -1,4 +1,4 @@
-package by.kharitonov.day6.controller.entity;
+package by.kharitonov.day6.model.entity;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
 import by.kharitonov.day6.controller.command.impl.AddCommand;
@@ -33,5 +33,4 @@ public enum CommandType {
     public ActionCommand getCurrentCommand() {
         return command;
     }
-
 }

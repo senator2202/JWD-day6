@@ -13,8 +13,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class BookWarehouseControllerTest {
-    private BookWarehouseController controller = new BookWarehouseController();
-    private BookWarehouse warehouse = BookWarehouse.getInstance();
+    private final BookWarehouseController controller =
+            BookWarehouseController.getInstance();
+    private final BookWarehouse warehouse = BookWarehouse.getInstance();
     private Book book1;
     private Book book2;
     private Book book3;

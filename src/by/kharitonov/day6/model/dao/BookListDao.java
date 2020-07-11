@@ -22,8 +22,6 @@ public interface BookListDao {
 
     List<Book> findBooksByPublishingHouse(String publishingHouse);
 
-    List<Book> findAll();
-
     List<Book> sortBooksById();
 
     List<Book> sortBooksByTitle();

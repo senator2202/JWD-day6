@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class BookValidator {
+    public static final int BOOK_TAG_INDEX = 0;
+    public static final int TAG_VALUE_INDEX = 1;
     private static final int MIN_YEAR = 1800;
     private static final int MAX_YEAR;
     private static final int MAX_PAGES = 2000;
@@ -15,8 +17,6 @@ public class BookValidator {
     private static final int TAG_NUMBERS = 6;
     private static final int FIND_PARAMETERS_NUMBER = 2;
     private static final int SORT_PARAMETERS_NUMBER = 1;
-    public static final int BOOK_TAG_INDEX = 0;
-    public static final int TAG_VALUE_INDEX = 1;
 
     static {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(),
@@ -74,7 +74,7 @@ public class BookValidator {
     }
 
     public boolean validateFindParameters(String[] parameters) {
-        if (parameters==null || parameters.length != FIND_PARAMETERS_NUMBER) {
+        if (parameters == null || parameters.length != FIND_PARAMETERS_NUMBER) {
             return false;
         }
         boolean result;
@@ -89,13 +89,12 @@ public class BookValidator {
     }
 
     public boolean validateSortParameters(String[] parameters) {
-        if (parameters==null || parameters.length != SORT_PARAMETERS_NUMBER) {
+        if (parameters == null || parameters.length != SORT_PARAMETERS_NUMBER) {
             return false;
         }
         boolean result;
         try {
-            BookTag bookTag =
-                    BookTag.valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
+            BookTag.valueOf(parameters[BOOK_TAG_INDEX].toUpperCase());
             result = true;
         } catch (IllegalArgumentException e) {
             result = false;

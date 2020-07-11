@@ -1,7 +1,7 @@
 package by.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
-import by.kharitonov.day6.controller.entity.CommandType;
+import by.kharitonov.day6.model.entity.CommandType;
 
 public class CommandFactory {
     public ActionCommand getActionCommand(String request) {

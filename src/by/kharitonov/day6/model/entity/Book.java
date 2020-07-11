@@ -16,6 +16,10 @@ public class Book {
     private Book() {
     }
 
+    public static Builder newBuilder() {
+        return new Book().new Builder();
+    }
+
     public String getId() {
         return id;
     }
@@ -44,54 +48,48 @@ public class Book {
         return authors.length == 0 ? "" : authors[0];
     }
 
-    public static Builder newBuilder() {
-        return new Book().new Builder();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Book book = (Book) o;
+        boolean result = true;
+        if (year != book.year ||
+                pages != book.pages ||
+                !id.equals(book.id) ||
+                !title.equals(book.title) ||
+                !Arrays.equals(authors, book.authors) ||
+                !publishingHouse.equals(book.publishingHouse)) {
+            result = false;
+        }
+        return result;
     }
 
-    public class Builder {
-        private Builder() {
-            Book.this.id = "";
-            Book.this.title = "";
-            Book.this.authors = new String[0];
-            Book.this.publishingHouse = "";
-        }
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + year;
+        result = 31 * result + pages;
+        result = 31 * result + publishingHouse.hashCode();
+        return result;
+    }
 
-        public Builder setId(String id) {
-            Book.this.id = id;
-            return this;
-        }
-
-        public Builder setTitle(String title) {
-            Book.this.title = title;
-            return this;
-        }
-
-        public Builder setAuthors(String... authors) {
-            Book.this.authors = authors;
-            return this;
-        }
-
-        public Builder setYear(int year) {
-            Book.this.year = year;
-            return this;
-        }
-
-        public Builder setPages(int pages) {
-            Book.this.pages = pages;
-            return this;
-        }
-
-        public Builder setPublishingHouse(String publishingHouse) {
-            Book.this.publishingHouse = publishingHouse;
-            return this;
-        }
-
-        public Book build() {
-            if (Book.this.id.isEmpty()) {
-                Book.this.id = IdGenerator.generateId();
-            }
-            return Book.this;
-        }
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Book{");
+        sb.append("id:\"").append(id).append('\"');
+        sb.append(", title:\"").append(title).append('\"');
+        sb.append(", authors:").append(Arrays.toString(authors));
+        sb.append(", year:").append(year);
+        sb.append(", pages:").append(pages);
+        sb.append(", publishingHouse:\"").append(publishingHouse).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 
     public static class BookAuthorsComparator implements Comparator<Book> {
@@ -139,47 +137,49 @@ public class Book {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    public class Builder {
+        private Builder() {
+            Book.this.id = "";
+            Book.this.title = "";
+            Book.this.authors = new String[0];
+            Book.this.publishingHouse = "";
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Book book = (Book) o;
-        boolean result = true;
-        if (year != book.year ||
-                pages != book.pages ||
-                !id.equals(book.id) ||
-                !title.equals(book.title) ||
-                !Arrays.equals(authors,book.authors) ||
-                !publishingHouse.equals(book.publishingHouse)) {
-            result = false;
-        }
-        return result;
-    }
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + year;
-        result = 31 * result + pages;
-        result = 31 * result + publishingHouse.hashCode();
-        return result;
-    }
+        public Builder setId(String id) {
+            Book.this.id = id;
+            return this;
+        }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Book{");
-        sb.append("id:\"").append(id).append('\"');
-        sb.append(", title:\"").append(title).append('\"');
-        sb.append(", authors:").append(authors);
-        sb.append(", year:").append(year);
-        sb.append(", pages:").append(pages);
-        sb.append(", publishingHouse:\"").append(publishingHouse).append('\"');
-        sb.append('}');
-        return sb.toString();
+        public Builder setTitle(String title) {
+            Book.this.title = title;
+            return this;
+        }
+
+        public Builder setAuthors(String... authors) {
+            Book.this.authors = authors;
+            return this;
+        }
+
+        public Builder setYear(int year) {
+            Book.this.year = year;
+            return this;
+        }
+
+        public Builder setPages(int pages) {
+            Book.this.pages = pages;
+            return this;
+        }
+
+        public Builder setPublishingHouse(String publishingHouse) {
+            Book.this.publishingHouse = publishingHouse;
+            return this;
+        }
+
+        public Book build() {
+            if (Book.this.id.isEmpty()) {
+                Book.this.id = IdGenerator.generateId();
+            }
+            return Book.this;
+        }
     }
 }
