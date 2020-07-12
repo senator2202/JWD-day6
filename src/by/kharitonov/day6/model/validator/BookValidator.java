@@ -14,7 +14,7 @@ public class BookValidator {
     public static final int AUTHORS_INDEX = 2;
     public static final int YEAR_INDEX = 3;
     public static final int PAGES_INDEX = 4;
-    public static final int PUBISHING_HOUSE_INDEX = 5;
+    public static final int PUBLISHING_HOUSE_INDEX = 5;
     private static final int TAG_NUMBERS = 6;
     private static final int FIND_PARAMETERS_NUMBER = 2;
     private static final int SORT_PARAMETERS_NUMBER = 1;

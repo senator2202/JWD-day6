@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.utils;
+package by.kharitonov.day6.model.util;
 
 import java.util.UUID;
 

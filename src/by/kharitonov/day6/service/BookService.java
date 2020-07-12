@@ -29,7 +29,7 @@ public class BookService {
                 .setPages(Integer
                         .parseInt(tagValues[BookValidator.PAGES_INDEX]))
                 .setPublishingHouse
-                        (tagValues[BookValidator.PUBISHING_HOUSE_INDEX])
+                        (tagValues[BookValidator.PUBLISHING_HOUSE_INDEX])
                 .build();
         return book;
     }
