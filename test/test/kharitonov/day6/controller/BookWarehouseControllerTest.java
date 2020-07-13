@@ -3,7 +3,6 @@ package test.kharitonov.day6.controller;
 import by.kharitonov.day6.controller.BookWarehouseController;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.exception.CommandException;
 import by.kharitonov.day6.view.ViewEmulator;
 import org.testng.annotations.*;
 
@@ -108,7 +107,7 @@ public class BookWarehouseControllerTest {
                 {"322", "Neznaika na lune", "Bunin, Esenin", "1995", "-250",
                         "Kapitoshka"},
                 {"2", "Harry", "Joan Roaling", "2007", "800", "Delibri", "222"},
-                {"2", "", "Joan Roaling", "2007", "800", "Delibri"},
+                {"2", "", "Joan Roaling", "2007", "800", "Delibri"}
         };
     }
 

@@ -25,4 +25,42 @@ public class CommandResult {
     public List<Book> getBookList() {
         return new ArrayList<>(bookList);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CommandResult that = (CommandResult) o;
+        boolean flag;
+        if (exception == null && that.exception != null) {
+            flag = false;
+        } else if (that.exception == null && exception != null) {
+            flag = false;
+        } else if (exception == null && that.exception == null) {
+            flag = true;
+        } else {
+            flag = exception.getMessage().equals(that.exception.getMessage());
+        }
+        return bookList.equals(that.bookList) && flag;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = exception != null ? exception.hashCode() : 0;
+        result = 31 * result + bookList.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CommandResult{");
+        sb.append("exception=").append(exception);
+        sb.append(", bookList: size = ").append(bookList.size());
+        sb.append('}');
+        return sb.toString();
+    }
 }
