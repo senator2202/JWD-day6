@@ -3,6 +3,7 @@ package test.kharitonov.day6.controller;
 import by.kharitonov.day6.controller.BookWarehouseController;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
+import by.kharitonov.day6.model.exception.CommandException;
 import by.kharitonov.day6.view.ViewEmulator;
 import org.testng.annotations.*;
 
@@ -132,8 +133,8 @@ public class BookWarehouseControllerTest {
         controller.processRequest("add", tagValues);
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
                 ViewEmulator.getCommandResult()
-                .getException().get().getMessage()
-                .equals("Warehouse is full!") &&
+                        .getException().get().getMessage()
+                        .equals("Warehouse is full!") &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);
     }
@@ -403,6 +404,15 @@ public class BookWarehouseControllerTest {
     public void testProcessRequestSortException(String[] parameters) {
         boolean flag;
         controller.processRequest("sort", parameters);
+        flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult().getBookList().isEmpty();
+        assertTrue(flag);
+    }
+
+    @Test()
+    public void testProcessRequestCommandException() {
+        boolean flag;
+        controller.processRequest("wrong_command", "no matter what value");
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);

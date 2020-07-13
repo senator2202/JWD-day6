@@ -2,7 +2,7 @@ package test.kharitonov.day6.service;
 
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.exception.BookServiceException;
+import by.kharitonov.day6.model.exception.ServiceException;
 import by.kharitonov.day6.service.BookService;
 import by.kharitonov.day6.view.ViewEmulator;
 import org.testng.annotations.*;
@@ -54,7 +54,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testAddBook() throws BookServiceException {
+    public void testAddBook() throws ServiceException {
         Book book = Book.newBuilder()
                 .setId("12")
                 .setTitle("Harry")
@@ -72,7 +72,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testAddBookModelChange() throws BookServiceException {
+    public void testAddBookModelChange() throws ServiceException {
         Book book = Book.newBuilder()
                 .setId("322")
                 .setTitle("Neznaika na lune")
@@ -112,14 +112,14 @@ public class BookServiceTest {
 
     @Parameters("tagValues")
     @Test(dataProvider = "dataAddBookException",
-            expectedExceptions = BookServiceException.class)
+            expectedExceptions = ServiceException.class)
     public void testAddBookException(String[] tagValues)
-            throws BookServiceException {
+            throws ServiceException {
         service.addBook(tagValues);
     }
 
-    @Test (expectedExceptions = BookServiceException.class)
-    public void testAddBookCapacityException() throws BookServiceException {
+    @Test (expectedExceptions = ServiceException.class)
+    public void testAddBookCapacityException() throws ServiceException {
         String[] tagValues = {"322", "Neznaika na lune", "Bunin, Esenin",
                 "1995", "250", "Kapitoshka"};
         boolean flag;
@@ -130,7 +130,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testRemoveBook() throws BookServiceException {
+    public void testRemoveBook() throws ServiceException {
         Book book = Book.newBuilder()
                 .setId("2")
                 .setTitle("Harry Potter and the deathly hallows")
@@ -148,7 +148,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testRemoveBookModelChange() throws BookServiceException {
+    public void testRemoveBookModelChange() throws ServiceException {
         int index;
         String[] tagValues = {
                 "2",
@@ -179,9 +179,9 @@ public class BookServiceTest {
 
     @Parameters("tagValues")
     @Test(dataProvider = "dataRemoveBookException",
-            expectedExceptions = BookServiceException.class)
+            expectedExceptions = ServiceException.class)
     public void testRemoveBookException(String[] tagValues)
-            throws BookServiceException {
+            throws ServiceException {
         service.removeBook(tagValues);
     }
 
@@ -213,7 +213,7 @@ public class BookServiceTest {
     @Parameters({"expectedList", "parameters"})
     @Test(dataProvider = "dataFindBooks")
     public void testFindBooks(List<Book> expectedList, String[] parameters)
-            throws BookServiceException {
+            throws ServiceException {
         List<Book> actualList = service.findBooks(parameters);
         assertEquals(actualList, expectedList);
     }
@@ -238,9 +238,9 @@ public class BookServiceTest {
 
     @Parameters("parameters")
     @Test(dataProvider = "dataFindException",
-            expectedExceptions = BookServiceException.class)
+            expectedExceptions = ServiceException.class)
     public void testFindException(String[] parameters)
-            throws BookServiceException {
+            throws ServiceException {
         service.findBooks(parameters);
     }
 
@@ -284,7 +284,7 @@ public class BookServiceTest {
     @Parameters({"expectedList", "parameters"})
     @Test(dataProvider = "dataSortBooks")
     public void testSortBooks(List<Book> expectedList, String[] parameters)
-            throws BookServiceException {
+            throws ServiceException {
         List<Book> actualList = service.sortBooks(parameters);
         assertEquals(actualList, expectedList);
     }
@@ -301,9 +301,9 @@ public class BookServiceTest {
 
     @Parameters("parameters")
     @Test(dataProvider = "dataSortException",
-            expectedExceptions = BookServiceException.class)
+            expectedExceptions = ServiceException.class)
     public void testSortException(String[] parameters)
-            throws BookServiceException {
+            throws ServiceException {
         boolean flag;
         service.sortBooks(parameters);
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
