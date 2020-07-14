@@ -1,6 +1,7 @@
 package test.kharitonov.day6.controller;
 
 import by.kharitonov.day6.controller.BookWarehouseController;
+import by.kharitonov.day6.controller.exception.CommandException;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.view.ViewEmulator;
@@ -294,6 +295,8 @@ public class BookWarehouseControllerTest {
         boolean flag;
         controller.processRequest("find", parameters);
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult().getException()
+                        .get().getMessage().equals("Invalid tag data!") &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);
     }
@@ -404,6 +407,8 @@ public class BookWarehouseControllerTest {
         boolean flag;
         controller.processRequest("sort", parameters);
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult().getException()
+                        .get().getMessage().equals("Invalid tag data!") &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);
     }
@@ -413,6 +418,8 @@ public class BookWarehouseControllerTest {
         boolean flag;
         controller.processRequest("wrong_command", "no matter what value");
         flag = ViewEmulator.getCommandResult().getException().isPresent() &&
+                ViewEmulator.getCommandResult().getException().get()
+                        instanceof CommandException &&
                 ViewEmulator.getCommandResult().getBookList().isEmpty();
         assertTrue(flag);
     }

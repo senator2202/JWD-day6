@@ -2,7 +2,7 @@ package test.kharitonov.day6.service;
 
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.exception.ServiceException;
+import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.service.BookService;
 import by.kharitonov.day6.view.ViewEmulator;
 import org.testng.annotations.*;

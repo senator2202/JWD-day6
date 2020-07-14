@@ -3,7 +3,7 @@ package by.kharitonov.day6.service;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
-import by.kharitonov.day6.model.exception.ServiceException;
+import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.model.exception.DaoException;
 import by.kharitonov.day6.model.type.BookTag;
 import by.kharitonov.day6.model.validator.BookValidator;

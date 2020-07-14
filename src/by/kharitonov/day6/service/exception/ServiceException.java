@@ -1,4 +1,4 @@
-package by.kharitonov.day6.model.exception;
+package by.kharitonov.day6.service.exception;
 
 public class ServiceException extends Exception {
     public ServiceException() {

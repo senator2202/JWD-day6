@@ -1,10 +1,7 @@
 package by.kharitonov.day6.model.type;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
-import by.kharitonov.day6.controller.command.impl.AddCommand;
-import by.kharitonov.day6.controller.command.impl.FindCommand;
-import by.kharitonov.day6.controller.command.impl.RemoveCommand;
-import by.kharitonov.day6.controller.command.impl.SortCommand;
+import by.kharitonov.day6.controller.command.impl.*;
 
 public enum CommandType {
     ADD {
@@ -25,6 +22,11 @@ public enum CommandType {
     SORT {
         {
             this.command = new SortCommand();
+        }
+    },
+    EMPTY {
+        {
+            this.command = new EmptyCommand();
         }
     };
 

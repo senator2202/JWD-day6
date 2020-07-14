@@ -3,7 +3,7 @@ package by.kharitonov.day6.controller.command.impl;
 import by.kharitonov.day6.controller.command.ActionCommand;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.CommandResult;
-import by.kharitonov.day6.model.exception.ServiceException;
+import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.service.BookService;
 
 import java.util.ArrayList;
