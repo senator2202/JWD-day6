@@ -1,6 +1,6 @@
 package test.kharitonov.day6.controller.command.impl;
 
-import by.kharitonov.day6.controller.command.impl.AddCommand;
+import by.kharitonov.day6.controller.command.impl.RemoveCommand;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.model.entity.CommandResult;
@@ -16,8 +16,8 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class AddCommandTest {
-    private AddCommand command = new AddCommand();
+public class RemoveCommandTest {
+    private RemoveCommand command = new RemoveCommand();
     private final BookWarehouse warehouse = BookWarehouse.getInstance();
 
     @BeforeClass
@@ -32,9 +32,9 @@ public class AddCommandTest {
     @Test
     public void testExecute() {
         List<Book> expectedList = new ArrayList<>();
-        expectedList.add(StaticDataProvider.ADDING_BOOK);
+        expectedList.add(StaticDataProvider.FIRST_BOOK);
         CommandResult actualResult =
-                command.execute(StaticDataProvider.ADDING_BOOK.getTags());
+                command.execute(StaticDataProvider.FIRST_BOOK.getTags());
         CommandResult expectedResult = new CommandResult(expectedList, null);
         assertEquals(actualResult, expectedResult);
     }
@@ -42,7 +42,7 @@ public class AddCommandTest {
     @Parameters("content")
     @Test(dataProvider = "invalidBookTags",
             dataProviderClass = StaticDataProvider.class)
-    public void testExecuteCatchTagsException(String[] content) {
+    public void testExecuteCatchException(String[] content) {
         List<Book> expectedList = new ArrayList<>();
         ServiceException exception =
                 new ServiceException("Invalid book parameters!");
@@ -53,29 +53,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void testExecuteAddCapacityException() {
+    public void dataExecuteCatchNotExistingException() {
         List<Book> expectedList = new ArrayList<>();
         ServiceException exception =
-                new ServiceException("Warehouse is full!");
-        CommandResult expectedResult =
-                new CommandResult(expectedList, exception);
-        CommandResult actualResult;
-        for (int i = 0; i < 97; i++) {
-            warehouse.add(StaticDataProvider.FIRST_BOOK);
-        }
-        actualResult = command.execute(StaticDataProvider.ADDING_BOOK.getTags());
-        assertEquals(actualResult, expectedResult);
-    }
-
-    @Test
-    public void dataExecuteCatchExistingException() {
-        List<Book> expectedList = new ArrayList<>();
-        ServiceException exception =
-                new ServiceException("This book already exists!");
+                new ServiceException("Such book doesn't exist!");
         CommandResult expectedResult =
                 new CommandResult(expectedList, exception);
         CommandResult actualResult =
-                command.execute(StaticDataProvider.FIRST_BOOK.getTags());
+                command.execute(StaticDataProvider.ADDING_BOOK.getTags());
         assertEquals(actualResult, expectedResult);
     }
 }

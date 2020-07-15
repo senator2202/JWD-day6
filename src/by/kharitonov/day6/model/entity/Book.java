@@ -44,6 +44,17 @@ public class Book {
         return publishingHouse;
     }
 
+    public String[] getTags(){
+        String[] tags = {
+                id,
+                title,
+                String.join(", ", authors),
+                String.valueOf(year),
+                String.valueOf(pages),
+                publishingHouse};
+        return tags;
+    }
+
     private String getMainAuthor() {
         return authors.length == 0 ? "" : authors[0];
     }
