@@ -5,8 +5,6 @@ import by.kharitonov.day6.model.entity.CommandResult;
 import by.kharitonov.day6.model.type.CommandType;
 import by.kharitonov.day6.view.ViewEmulator;
 
-import java.util.ArrayList;
-
 public class BookWarehouseController {
     private static BookWarehouseController bookWarehouseControllerInstance;
 
