@@ -17,7 +17,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class RemoveCommandTest {
-    private RemoveCommand command = new RemoveCommand();
+    private final RemoveCommand command = new RemoveCommand();
     private final BookWarehouse warehouse = BookWarehouse.getInstance();
 
     @BeforeClass

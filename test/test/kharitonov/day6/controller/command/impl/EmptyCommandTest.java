@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmptyCommandTest {
-    private EmptyCommand command = new EmptyCommand();
+    private final EmptyCommand command = new EmptyCommand();
 
     @Test
     public void testExecute() {

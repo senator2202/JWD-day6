@@ -17,7 +17,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class FindCommandTest {
-    private FindCommand command = new FindCommand();
+    private final FindCommand command = new FindCommand();
     private final BookWarehouse warehouse = BookWarehouse.getInstance();
 
     @BeforeClass

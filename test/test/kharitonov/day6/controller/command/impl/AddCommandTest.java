@@ -17,7 +17,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 
 public class AddCommandTest {
-    private AddCommand command = new AddCommand();
+    private final AddCommand command = new AddCommand();
     private final BookWarehouse warehouse = BookWarehouse.getInstance();
 
     @BeforeClass

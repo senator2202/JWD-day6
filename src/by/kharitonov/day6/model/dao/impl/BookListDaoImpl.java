@@ -30,26 +30,26 @@ public class BookListDaoImpl implements BookListDao {
     @Override
     public void removeBook(Book removingBook)
             throws DaoException {
-        if (!removeSimilar(removingBook)) {
-            throw new DaoException("Such book doesn't exist!");
-        }
-    }
-
-    private boolean removeSimilar(Book removingBook) {
         List<Book> allBooks = warehouse.findAll();
         boolean result = false;
         for (Book book : allBooks) {
-            if (book.getTitle().equals(removingBook.getTitle()) &&
-                    book.getAuthors().equals(removingBook.getAuthors()) &&
-                    book.getYear() == removingBook.getYear() &&
-                    book.getPages() == removingBook.getPages() &&
-                    book.getPublishingHouse()
-                            .equals(removingBook.getPublishingHouse())) {
+            if (isSimilar(book, removingBook)) {
                 warehouse.remove(book);
                 result = true;
             }
         }
-        return result;
+        if (!result) {
+            throw new DaoException("Such book doesn't exist!");
+        }
+    }
+
+    private boolean isSimilar(Book book, Book removingBook) {
+        return (book.getTitle().equals(removingBook.getTitle()) &&
+                book.getAuthors().equals(removingBook.getAuthors()) &&
+                book.getYear() == removingBook.getYear() &&
+                book.getPages() == removingBook.getPages() &&
+                book.getPublishingHouse()
+                        .equals(removingBook.getPublishingHouse()));
     }
 
     @Override

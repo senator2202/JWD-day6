@@ -1,6 +1,5 @@
 package test.kharitonov.day6.controller.command.impl;
 
-import by.kharitonov.day6.controller.command.impl.FindCommand;
 import by.kharitonov.day6.controller.command.impl.SortCommand;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
@@ -15,10 +14,10 @@ import test.kharitonov.day6.data_provider.StaticDataProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class SortCommandTest {
-    private SortCommand command = new SortCommand();
+    private final SortCommand command = new SortCommand();
     private final BookWarehouse warehouse = BookWarehouse.getInstance();
 
     @BeforeClass

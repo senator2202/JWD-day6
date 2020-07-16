@@ -4,8 +4,10 @@ import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.service.BookService;
 import by.kharitonov.day6.service.exception.ServiceException;
-import by.kharitonov.day6.view.ViewEmulator;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 import test.kharitonov.day6.data_provider.StaticDataProvider;
 
 import java.util.ArrayList;
