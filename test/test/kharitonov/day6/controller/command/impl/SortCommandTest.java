@@ -34,8 +34,7 @@ public class SortCommandTest {
     @Test(dataProvider = "sortedBooks",
             dataProviderClass = StaticDataProvider.class)
     public void testExecute(List<Book> expectedList, String[] parameters) {
-        CommandResult actualResult =
-                command.execute(parameters);
+        CommandResult actualResult = command.execute(parameters);
         CommandResult expectedResult = new CommandResult(expectedList, null);
         assertEquals(actualResult, expectedResult);
     }

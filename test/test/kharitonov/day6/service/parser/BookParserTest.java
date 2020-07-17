@@ -1,7 +1,10 @@
 package test.kharitonov.day6.service.parser;
 
 import by.kharitonov.day6.model.entity.Book;
+import by.kharitonov.day6.model.type.BookTag;
 import by.kharitonov.day6.service.parser.BookParser;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import test.kharitonov.day6.data_provider.StaticDataProvider;
 
@@ -14,7 +17,27 @@ public class BookParserTest {
     public void testPrepareBook() {
         Book book = StaticDataProvider.FIRST_BOOK;
         String[] bookTags = StaticDataProvider.parseTags(book);
-        Book actualBook = parser.prepareBook(bookTags);
+        Book actualBook = parser.parseBook(bookTags);
         assertEquals(actualBook, StaticDataProvider.FIRST_BOOK);
+    }
+
+    @DataProvider(name = "dataParseBookTag")
+    @Test
+    public Object[][] dataParseBookTag() {
+        return new Object[][] {
+                {"id", BookTag.ID},
+                {"title", BookTag.TITLE},
+                {"authors", BookTag.AUTHORS},
+                {"year", BookTag.YEAR},
+                {"pages", BookTag.PAGES},
+                {"publishing_house", BookTag.PUBLISHING_HOUSE}
+        };
+    }
+
+    @Parameters({"stringTag", "expectedBookTag"})
+    @Test(dataProvider = "dataParseBookTag")
+    public void testParseBookTag(String stringTag, BookTag expectedBookTag) {
+        BookTag actualBookTag = parser.parseBookTag(stringTag);
+        assertEquals(actualBookTag,expectedBookTag);
     }
 }

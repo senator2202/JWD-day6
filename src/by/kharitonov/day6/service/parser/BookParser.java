@@ -1,12 +1,13 @@
 package by.kharitonov.day6.service.parser;
 
 import by.kharitonov.day6.model.entity.Book;
+import by.kharitonov.day6.model.type.BookTag;
 import by.kharitonov.day6.service.validator.BookValidator;
 
 public class BookParser {
     private static final String DELIMITER = ", ";
 
-    public Book prepareBook(String[] tagValues) {
+    public Book parseBook(String[] tagValues) {
         Book book;
         book = Book.newBuilder()
                 .setId(tagValues[BookValidator.ID_INDEX])
@@ -20,5 +21,9 @@ public class BookParser {
                         (tagValues[BookValidator.PUBLISHING_HOUSE_INDEX])
                 .build();
         return book;
+    }
+
+    public BookTag parseBookTag(String stringTag) {
+        return BookTag.valueOf(stringTag.toUpperCase());
     }
 }
