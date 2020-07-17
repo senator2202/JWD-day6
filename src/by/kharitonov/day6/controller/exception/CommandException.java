@@ -1,6 +1,6 @@
 package by.kharitonov.day6.controller.exception;
 
-public class CommandException extends Exception{
+public class CommandException extends Exception {
     public CommandException() {
     }
 

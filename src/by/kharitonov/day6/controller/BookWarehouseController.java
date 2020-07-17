@@ -1,8 +1,8 @@
 package by.kharitonov.day6.controller;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
-import by.kharitonov.day6.model.entity.CommandResult;
-import by.kharitonov.day6.model.type.CommandType;
+import by.kharitonov.day6.controller.parser.CommandParser;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.view.ViewEmulator;
 
 public class BookWarehouseController {
@@ -19,16 +19,9 @@ public class BookWarehouseController {
     }
 
     public void processRequest(String request, String... content) {
-        ActionCommand command;
-        CommandResult commandResult;
-        try {
-            command = CommandType
-                    .valueOf(request.toUpperCase())
-                    .getCurrentCommand();
-        } catch (IllegalArgumentException e) {
-            command = CommandType.EMPTY.getCurrentCommand();
-        }
-        commandResult = command.execute(content);
+        CommandParser provider = new CommandParser();
+        ActionCommand command = provider.defineCommand(request);
+        CommandResult commandResult = command.execute(content);
         ViewEmulator.setCommandResult(commandResult);
     }
 }

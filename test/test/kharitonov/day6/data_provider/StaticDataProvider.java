@@ -57,6 +57,17 @@ public class StaticDataProvider {
                 .build();
     }
 
+    public static String[] parseTags(Book book) {
+        return new String[]{
+                book.getId(),
+                book.getTitle(),
+                book.getAuthors(),
+                String.valueOf(book.getYear()),
+                String.valueOf(book.getPages()),
+                book.getPublishingHouse()
+        };
+    }
+
     @DataProvider(name = "invalidBookTags")
     @Test
     public static Object[][] invalidBookTags() {

@@ -1,9 +1,9 @@
 package test.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.impl.RemoveCommand;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.entity.CommandResult;
 import by.kharitonov.day6.service.exception.ServiceException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -32,9 +32,10 @@ public class RemoveCommandTest {
     @Test
     public void testExecute() {
         List<Book> expectedList = new ArrayList<>();
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         expectedList.add(StaticDataProvider.FIRST_BOOK);
-        CommandResult actualResult =
-                command.execute(StaticDataProvider.FIRST_BOOK.getTags());
+        CommandResult actualResult = command.execute(bookTags);
         CommandResult expectedResult = new CommandResult(expectedList, null);
         assertEquals(actualResult, expectedResult);
     }
@@ -55,12 +56,13 @@ public class RemoveCommandTest {
     @Test
     public void dataExecuteCatchNotExistingException() {
         List<Book> expectedList = new ArrayList<>();
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         ServiceException exception =
                 new ServiceException("Such book doesn't exist!");
         CommandResult expectedResult =
                 new CommandResult(expectedList, exception);
-        CommandResult actualResult =
-                command.execute(StaticDataProvider.ADDING_BOOK.getTags());
+        CommandResult actualResult = command.execute(bookTags);
         assertEquals(actualResult, expectedResult);
     }
 }

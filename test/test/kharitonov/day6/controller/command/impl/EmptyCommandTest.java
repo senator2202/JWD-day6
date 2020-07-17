@@ -2,8 +2,8 @@ package test.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.impl.EmptyCommand;
 import by.kharitonov.day6.controller.exception.CommandException;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.model.entity.Book;
-import by.kharitonov.day6.model.entity.CommandResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

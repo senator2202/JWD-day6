@@ -1,30 +1,30 @@
-package by.kharitonov.day6.model.type;
+package by.kharitonov.day6.controller.type;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
 import by.kharitonov.day6.controller.command.impl.*;
 
 public enum CommandType {
-    ADD {
+    ADD_COMMAND {
         {
             this.command = new AddCommand();
         }
     },
-    REMOVE {
+    REMOVE_COMMAND {
         {
             this.command = new RemoveCommand();
         }
     },
-    FIND {
+    FIND_COMMAND {
         {
             this.command = new FindCommand();
         }
     },
-    SORT {
+    SORT_COMMAND {
         {
             this.command = new SortCommand();
         }
     },
-    EMPTY {
+    EMPTY_COMMAND {
         {
             this.command = new EmptyCommand();
         }

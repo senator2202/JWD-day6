@@ -1,6 +1,6 @@
 package by.kharitonov.day6.view;
 
-import by.kharitonov.day6.model.entity.CommandResult;
+import by.kharitonov.day6.controller.response.CommandResult;
 
 public class ViewEmulator {
     private static CommandResult commandResult = new CommandResult();

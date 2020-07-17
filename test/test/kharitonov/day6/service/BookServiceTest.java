@@ -32,8 +32,9 @@ public class BookServiceTest {
 
     @Test
     public void testAddBook() throws ServiceException {
-        List<Book> actualList =
-                service.addBook(StaticDataProvider.ADDING_BOOK.getTags());
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        List<Book> actualList = service.addBook(bookTags);
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.ADDING_BOOK);
         assertEquals(actualList, expectedList);
@@ -42,7 +43,9 @@ public class BookServiceTest {
     @Test
     public void testAddBookModelChange() throws ServiceException {
         boolean flag;
-        service.addBook(StaticDataProvider.ADDING_BOOK.getTags());
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        service.addBook(bookTags);
         flag = warehouse.indexOf(StaticDataProvider.ADDING_BOOK) == 4;
         assertTrue(flag);
     }
@@ -58,21 +61,26 @@ public class BookServiceTest {
 
     @Test(expectedExceptions = ServiceException.class)
     public void testAddExistingBook() throws ServiceException {
-        service.addBook(StaticDataProvider.FIRST_BOOK.getTags());
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        service.addBook(bookTags);
     }
 
     @Test(expectedExceptions = ServiceException.class)
     public void testAddBookCapacityException() throws ServiceException {
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         for (int i = 0; i < 97; i++) {
             warehouse.add(StaticDataProvider.FIRST_BOOK);
         }
-        service.addBook(StaticDataProvider.ADDING_BOOK.getTags());
+        service.addBook(bookTags);
     }
 
     @Test
     public void testRemoveBook() throws ServiceException {
-        List<Book> actualList =
-                service.removeBook(StaticDataProvider.FIRST_BOOK.getTags());
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        List<Book> actualList = service.removeBook(bookTags);
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.FIRST_BOOK);
         assertEquals(actualList, expectedList);
@@ -81,8 +89,10 @@ public class BookServiceTest {
     @Test
     public void testRemoveBookModelChange() throws ServiceException {
         int index;
-        service.removeBook(StaticDataProvider.FIRST_BOOK.getTags());
-        index = warehouse.indexOf(StaticDataProvider.FIRST_BOOK);
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        service.removeBook(bookTags);
+        index = warehouse.indexOf(book);
         assertEquals(-1, index);
     }
 
@@ -97,7 +107,9 @@ public class BookServiceTest {
 
     @Test(expectedExceptions = ServiceException.class)
     public void testRemoveNotExistingBook() throws ServiceException {
-        service.removeBook(StaticDataProvider.ADDING_BOOK.getTags());
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        service.removeBook(bookTags);
     }
 
     @Parameters({"expectedList", "parameters"})

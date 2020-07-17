@@ -9,14 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookListDaoImpl implements BookListDao {
-    private final BookWarehouse warehouse;
-
-    public BookListDaoImpl() {
-        warehouse = BookWarehouse.getInstance();
-    }
-
     @Override
     public void addBook(Book book) throws DaoException {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         if (allBooks.contains(book)) {
             throw new DaoException("This book already exists!");
@@ -30,7 +25,8 @@ public class BookListDaoImpl implements BookListDao {
     @Override
     public void removeBook(Book removingBook)
             throws DaoException {
-        List<Book> allBooks = warehouse.findAll();
+        BookWarehouse warehouse = BookWarehouse.getInstance();
+        List<Book> allBooks = new ArrayList<>(warehouse.findAll());
         boolean result = false;
         for (Book book : allBooks) {
             if (isSimilar(book, removingBook)) {
@@ -54,6 +50,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBookById(String id) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> searchedBook = new ArrayList<>();
         for (Book book : allBooks) {
@@ -67,6 +64,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBooksByTitle(String title) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> resultList = new ArrayList<>();
         for (Book book : allBooks) {
@@ -79,6 +77,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBooksByAuthor(String author) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> resultList = new ArrayList<>();
         for (Book book : allBooks) {
@@ -91,6 +90,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBooksByYear(String year) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> resultList = new ArrayList<>();
         for (Book book : allBooks) {
@@ -103,6 +103,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBooksByPages(String pages) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> resultList = new ArrayList<>();
         for (Book book : allBooks) {
@@ -115,6 +116,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> findBooksByPublishingHouse(String publishingHouse) {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> resultList = new ArrayList<>();
         for (Book book : allBooks) {
@@ -127,6 +129,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksById() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookIdComparator());
@@ -135,6 +138,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByTitle() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookTitleComparator());
@@ -143,6 +147,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByAuthors() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookAuthorsComparator());
@@ -151,6 +156,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByYear() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookYearComparator());
@@ -159,6 +165,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByPages() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookPagesComparator());
@@ -167,6 +174,7 @@ public class BookListDaoImpl implements BookListDao {
 
     @Override
     public List<Book> sortBooksByPublishingHouse() {
+        BookWarehouse warehouse = BookWarehouse.getInstance();
         List<Book> allBooks = warehouse.findAll();
         List<Book> sortedList = new ArrayList<>(allBooks);
         sortedList.sort(new Book.BookPublishingHouseComparator());

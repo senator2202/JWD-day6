@@ -1,4 +1,6 @@
-package by.kharitonov.day6.model.entity;
+package by.kharitonov.day6.controller.response;
+
+import by.kharitonov.day6.model.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +42,13 @@ public class CommandResult {
             flag = false;
         } else if (that.exception == null && exception != null) {
             flag = false;
-        } else if (exception == null && that.exception == null) {
+        } else if (exception == null) {
             flag = true;
         } else {
-            flag = exception.getMessage().equals(that.exception.getMessage());
+            flag = exception.getMessage()
+                    .contains(that.exception.getMessage()) ||
+                    that.exception.getMessage()
+                            .contains(exception.getMessage());
         }
         return bookList.equals(that.bookList) && flag;
     }

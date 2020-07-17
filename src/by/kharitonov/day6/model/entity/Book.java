@@ -29,7 +29,8 @@ public class Book {
     }
 
     public String getAuthors() {
-        return String.join(", ", authors);
+        String delimiter = ", ";
+        return String.join(delimiter, authors);
     }
 
     public int getYear() {
@@ -42,17 +43,6 @@ public class Book {
 
     public String getPublishingHouse() {
         return publishingHouse;
-    }
-
-    public String[] getTags(){
-        return new String[]{
-                id,
-                title,
-                String.join(", ", authors),
-                String.valueOf(year),
-                String.valueOf(pages),
-                publishingHouse
-        };
     }
 
     private String getMainAuthor() {

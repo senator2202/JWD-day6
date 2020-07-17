@@ -5,7 +5,9 @@ import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
 import by.kharitonov.day6.model.exception.DaoException;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import test.kharitonov.day6.data_provider.StaticDataProvider;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class BookListDaoImplTest {
         List<Book> actualList = dao.findBookById("3");
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -78,7 +80,7 @@ public class BookListDaoImplTest {
         List<Book> actualList = dao.findBooksByTitle("Lord of the rings");
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.SECOND_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -87,7 +89,7 @@ public class BookListDaoImplTest {
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.FIRST_BOOK);
         expectedList.add(StaticDataProvider.FOURS_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -95,7 +97,7 @@ public class BookListDaoImplTest {
         List<Book> actualList = dao.findBooksByYear("2005");
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.FOURS_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -103,7 +105,7 @@ public class BookListDaoImplTest {
         List<Book> actualList = dao.findBooksByPages("800");
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.FIRST_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -112,7 +114,7 @@ public class BookListDaoImplTest {
                 dao.findBooksByPublishingHouse("Ishi Press");
         List<Book> expectedList = new ArrayList<>();
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -123,7 +125,7 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.FIRST_BOOK);
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -134,7 +136,7 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.SECOND_BOOK);
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -145,7 +147,7 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.SECOND_BOOK);
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -156,7 +158,7 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.FIRST_BOOK);
         expectedList.add(StaticDataProvider.THIRD_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -167,7 +169,7 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.FIRST_BOOK);
         expectedList.add(StaticDataProvider.SECOND_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
@@ -178,6 +180,6 @@ public class BookListDaoImplTest {
         expectedList.add(StaticDataProvider.THIRD_BOOK);
         expectedList.add(StaticDataProvider.FOURS_BOOK);
         expectedList.add(StaticDataProvider.SECOND_BOOK);
-        assertEquals(actualList,expectedList);
+        assertEquals(actualList, expectedList);
     }
 }

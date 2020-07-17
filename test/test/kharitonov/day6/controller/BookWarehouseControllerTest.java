@@ -2,9 +2,9 @@ package test.kharitonov.day6.controller;
 
 import by.kharitonov.day6.controller.BookWarehouseController;
 import by.kharitonov.day6.controller.exception.CommandException;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.entity.CommandResult;
 import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.view.ViewEmulator;
 import org.testng.annotations.BeforeClass;
@@ -37,8 +37,9 @@ public class BookWarehouseControllerTest {
     @Test
     public void testProcessRequestAddModelChange() {
         boolean flag;
-        controller.processRequest("add",
-                StaticDataProvider.ADDING_BOOK.getTags());
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        controller.processRequest("add", bookTags);
         flag = warehouse.indexOf(StaticDataProvider.ADDING_BOOK) == 4;
         assertTrue(flag);
     }
@@ -46,11 +47,12 @@ public class BookWarehouseControllerTest {
     @Test
     public void testProcessRequestAddViewChange() {
         List<Book> addList = new ArrayList<>();
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         CommandResult expectedResult;
         addList.add(StaticDataProvider.ADDING_BOOK);
         expectedResult = new CommandResult(addList, null);
-        controller.processRequest("add",
-                StaticDataProvider.ADDING_BOOK.getTags());
+        controller.processRequest("add", bookTags);
         assertEquals(ViewEmulator.getCommandResult(), expectedResult);
     }
 
@@ -70,18 +72,21 @@ public class BookWarehouseControllerTest {
     @Test
     public void testProcessRequestAddExisting() {
         List<Book> addList = new ArrayList<>();
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         CommandResult expectedResult;
         ServiceException exception =
                 new ServiceException("This book already exists!");
         expectedResult = new CommandResult(addList, exception);
-        controller.processRequest("add",
-                StaticDataProvider.FIRST_BOOK.getTags());
+        controller.processRequest("add", bookTags);
         assertEquals(ViewEmulator.getCommandResult(), expectedResult);
     }
 
     @Test
     public void testProcessRequestAddCapacityException() {
         List<Book> addList = new ArrayList<>();
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         CommandResult expectedResult;
         ServiceException exception =
                 new ServiceException("Warehouse is full!");
@@ -89,16 +94,16 @@ public class BookWarehouseControllerTest {
         for (int i = 0; i < 97; i++) {
             warehouse.add(StaticDataProvider.FIRST_BOOK);
         }
-        controller.processRequest("add",
-                StaticDataProvider.ADDING_BOOK.getTags());
+        controller.processRequest("add", bookTags);
         assertEquals(ViewEmulator.getCommandResult(), expectedResult);
     }
 
     @Test
     public void testProcessRequestRemoveModelChange() {
         int index;
-        controller.processRequest("remove",
-                StaticDataProvider.FIRST_BOOK.getTags());
+        Book book = StaticDataProvider.FIRST_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
+        controller.processRequest("remove", bookTags);
         index = warehouse.indexOf(StaticDataProvider.FIRST_BOOK);
         assertEquals(-1, index);
     }
@@ -106,11 +111,12 @@ public class BookWarehouseControllerTest {
     @Test
     public void testProcessRequestRemoveViewChange() {
         List<Book> addList = new ArrayList<>();
+        Book book = StaticDataProvider.SECOND_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         CommandResult expectedResult;
         addList.add(StaticDataProvider.SECOND_BOOK);
         expectedResult = new CommandResult(addList, null);
-        controller.processRequest("remove",
-                StaticDataProvider.SECOND_BOOK.getTags());
+        controller.processRequest("remove", bookTags);
         assertEquals(ViewEmulator.getCommandResult(), expectedResult);
     }
 
@@ -130,12 +136,13 @@ public class BookWarehouseControllerTest {
     @Test
     public void testProcessRequestRemoveNotExisting() {
         List<Book> addList = new ArrayList<>();
+        Book book = StaticDataProvider.ADDING_BOOK;
+        String[] bookTags = StaticDataProvider.parseTags(book);
         CommandResult expectedResult;
         ServiceException exception =
                 new ServiceException("Such book doesn't exist!");
         expectedResult = new CommandResult(addList, exception);
-        controller.processRequest("remove",
-                StaticDataProvider.ADDING_BOOK.getTags());
+        controller.processRequest("remove", bookTags);
         assertEquals(ViewEmulator.getCommandResult(), expectedResult);
     }
 

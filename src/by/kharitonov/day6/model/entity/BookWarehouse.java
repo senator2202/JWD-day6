@@ -1,6 +1,7 @@
 package by.kharitonov.day6.model.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookWarehouse {
@@ -40,7 +41,7 @@ public class BookWarehouse {
     }
 
     public List<Book> findAll() {
-        return new ArrayList<>(books);
+        return Collections.unmodifiableList(books);
     }
 
     @Override

@@ -3,10 +3,11 @@ package by.kharitonov.day6.service;
 import by.kharitonov.day6.model.dao.BookListDao;
 import by.kharitonov.day6.model.dao.impl.BookListDaoImpl;
 import by.kharitonov.day6.model.entity.Book;
-import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.model.exception.DaoException;
 import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.validator.BookValidator;
+import by.kharitonov.day6.service.exception.ServiceException;
+import by.kharitonov.day6.service.parser.BookParser;
+import by.kharitonov.day6.service.validator.BookValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,28 +15,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BookService {
-    private Book prepareBook(String[] tagValues)
-            throws ServiceException {
-        BookValidator validator = new BookValidator();
-        if (!validator.validateAllBookTags(tagValues)) {
+    public List<Book> addBook(String[] tagValues) throws ServiceException {
+        if (!new BookValidator().validateAllBookTags(tagValues)) {
             throw new ServiceException("Invalid book parameters!");
         }
-        Book book;
-        book = Book.newBuilder()
-                .setId(tagValues[BookValidator.ID_INDEX])
-                .setTitle(tagValues[BookValidator.TITLE_INDEX])
-                .setAuthors(tagValues[BookValidator.AUTHORS_INDEX].split(", "))
-                .setYear(Integer.parseInt(tagValues[BookValidator.YEAR_INDEX]))
-                .setPages(Integer
-                        .parseInt(tagValues[BookValidator.PAGES_INDEX]))
-                .setPublishingHouse
-                        (tagValues[BookValidator.PUBLISHING_HOUSE_INDEX])
-                .build();
-        return book;
-    }
-
-    public List<Book> addBook(String[] tagValues) throws ServiceException {
-        Book book = prepareBook(tagValues);
+        BookParser parser = new BookParser();
+        Book book = parser.prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
         List<Book> resultList = new ArrayList<>();
         try {
@@ -43,13 +28,17 @@ public class BookService {
             resultList.add(book);
             return resultList;
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
+            throw new ServiceException(e);
         }
     }
 
     public List<Book> removeBook(String[] tagValues)
             throws ServiceException {
-        Book book = prepareBook(tagValues);
+        if (!new BookValidator().validateAllBookTags(tagValues)) {
+            throw new ServiceException("Invalid book parameters!");
+        }
+        BookParser parser = new BookParser();
+        Book book = parser.prepareBook(tagValues);
         BookListDao dao = new BookListDaoImpl();
         List<Book> resultList = new ArrayList<>();
         try {
@@ -57,7 +46,7 @@ public class BookService {
             resultList.add(book);
             return resultList;
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
+            throw new ServiceException(e);
         }
     }
 

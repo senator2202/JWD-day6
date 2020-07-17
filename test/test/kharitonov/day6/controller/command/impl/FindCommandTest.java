@@ -1,9 +1,9 @@
 package test.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.impl.FindCommand;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.model.entity.Book;
 import by.kharitonov.day6.model.entity.BookWarehouse;
-import by.kharitonov.day6.model.entity.CommandResult;
 import by.kharitonov.day6.service.exception.ServiceException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;

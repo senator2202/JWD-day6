@@ -1,7 +1,7 @@
-package test.kharitonov.day6.model.validator;
+package test.kharitonov.day6.service.validator;
 
 import by.kharitonov.day6.model.type.BookTag;
-import by.kharitonov.day6.model.validator.BookValidator;
+import by.kharitonov.day6.service.validator.BookValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

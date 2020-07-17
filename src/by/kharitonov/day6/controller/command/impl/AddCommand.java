@@ -1,10 +1,10 @@
 package by.kharitonov.day6.controller.command.impl;
 
 import by.kharitonov.day6.controller.command.ActionCommand;
+import by.kharitonov.day6.controller.response.CommandResult;
 import by.kharitonov.day6.model.entity.Book;
-import by.kharitonov.day6.model.entity.CommandResult;
-import by.kharitonov.day6.service.exception.ServiceException;
 import by.kharitonov.day6.service.BookService;
+import by.kharitonov.day6.service.exception.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
