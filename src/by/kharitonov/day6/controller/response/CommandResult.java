@@ -3,6 +3,7 @@ package by.kharitonov.day6.controller.response;
 import by.kharitonov.day6.model.entity.Book;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class CommandResult {
     }
 
     public List<Book> getBookList() {
-        return new ArrayList<>(bookList);
+        return Collections.unmodifiableList(bookList);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class BookParserTest {
     @DataProvider(name = "dataParseBookTag")
     @Test
     public Object[][] dataParseBookTag() {
-        return new Object[][] {
+        return new Object[][]{
                 {"id", BookTag.ID},
                 {"title", BookTag.TITLE},
                 {"authors", BookTag.AUTHORS},
@@ -38,6 +38,6 @@ public class BookParserTest {
     @Test(dataProvider = "dataParseBookTag")
     public void testParseBookTag(String stringTag, BookTag expectedBookTag) {
         BookTag actualBookTag = parser.parseBookTag(stringTag);
-        assertEquals(actualBookTag,expectedBookTag);
+        assertEquals(actualBookTag, expectedBookTag);
     }
 }
