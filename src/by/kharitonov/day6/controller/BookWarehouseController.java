@@ -19,8 +19,8 @@ public class BookWarehouseController {
     }
 
     public void processRequest(String request, String... content) {
-        CommandParser provider = new CommandParser();
-        ActionCommand command = provider.defineCommand(request);
+        CommandParser parser = new CommandParser();
+        ActionCommand command = parser.defineCommand(request);
         CommandResult commandResult = command.execute(content);
         ViewEmulator.setCommandResult(commandResult);
     }
